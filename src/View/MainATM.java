@@ -32,7 +32,6 @@ public class MainATM {
         });
         balance.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                f.dispose();
                 ATMController.showBalance(username);
             }
         });
