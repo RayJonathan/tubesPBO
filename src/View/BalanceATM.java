@@ -1,7 +1,7 @@
 package View;
 
 import java.awt.event.*;
-
+import Controller.*;
 import javax.swing.*;
 
 public class BalanceATM {
@@ -22,6 +22,7 @@ public class BalanceATM {
         back.addActionListener((ActionListener) new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 int topupValue = Integer.parseInt(value.getText());
+                System.out.println(TopupController.setBalance(topupValue));
             }
         });
     }
