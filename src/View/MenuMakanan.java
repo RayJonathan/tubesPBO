@@ -9,9 +9,15 @@ import javax.swing.*;
 import Controller.*;
 
 public class MenuMakanan {
+    <<<<<<<HEAD
     static ConnectDatabase conn = SingletonDatabase.getConnectObject();
 
     static private ArrayList<String> menu = new ArrayList<>();
+
+    =======
+    static private ArrayList<String> menu = new ArrayList<>();
+
+    static ConnectDatabase conn = SingletonDatabase.getConnectObject();>>>>>>>00e0 ee123f8097f3f17a152a833ad013ebfecc08
 
     public static void main(String[] args) {
         showFood();
@@ -49,6 +55,7 @@ public class MenuMakanan {
         frame.setVisible(true);
     }
 
+    <<<<<<<HEAD
     // public static void main(String[] Args) {
     // showFood();
     // JFrame frame = new JFrame("Menu Makanan");
@@ -62,6 +69,9 @@ public class MenuMakanan {
 
     public static void showFood() {
         ConnectDatabase conn = new ConnectDatabase();
+
+    public static String showFood() {
+        ArrayList<String> menu = new ArrayList<>();
         conn.connect();
 
         try {
@@ -69,7 +79,8 @@ public class MenuMakanan {
             ResultSet rs = stat.executeQuery("SELECT * FROM menu");
             while (rs.next()) {
                 menu.add(rs.getString("name_menu"));
-            }
+       
+
             rs.toString();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error!! Gagal memasukkan data ke database");

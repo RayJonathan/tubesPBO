@@ -12,6 +12,11 @@ public class ViewMenuCustomer extends JFrame implements ActionListener {
     JFrame f = new JFrame("");
     JLabel labTitle;
     JButton buttonReservation, buttonJoinMember, buttonATM, buttonUpdateProfile, buttonBack;
+    JButton buttonReservation, buttonJoinMember, buttonATM, buttonUpdateProfile, buttonLogout;
+
+    public static void main(String[] args) {
+        new ViewMenuCustomer();
+    }
 
     public ViewMenuCustomer() {
         labTitle = new JLabel("Hey");
@@ -19,7 +24,7 @@ public class ViewMenuCustomer extends JFrame implements ActionListener {
         buttonJoinMember = new JButton("Join Membership");
         buttonATM = new JButton("Balance");
         buttonUpdateProfile = new JButton("Update Profile");
-        buttonBack = new JButton("back");
+        buttonLogout = new JButton("LogOut");
 
         labTitle.setBounds(20, 0, 100, 50);
         buttonReservation.setBounds(40, 40, 100, 50);
@@ -28,19 +33,28 @@ public class ViewMenuCustomer extends JFrame implements ActionListener {
         buttonUpdateProfile.setBounds(160, 120, 100, 50);
         buttonBack.setBounds(40, 190, 100, 20);
 
+        labTitle.setBounds(20, 20, 100, 70);
+        buttonReservation.setBounds(30, 90, 150, 70);
+        buttonJoinMember.setBounds(190, 90, 150, 70);
+        buttonATM.setBounds(30, 170, 150, 70);
+        buttonUpdateProfile.setBounds(190, 170, 150, 70);
+        buttonLogout.setBounds(240, 250, 100, 30);
+
         f.add(labTitle);
         f.add(buttonReservation);
         f.add(buttonJoinMember);
         f.add(buttonATM);
         f.add(buttonUpdateProfile);
+
         f.add(buttonBack);
+        f.add(buttonLogout);
 
         f.setSize(400, 400);
         buttonReservation.addActionListener(this);
         buttonJoinMember.addActionListener(this);
         buttonATM.addActionListener(this);
         buttonUpdateProfile.addActionListener(this);
-        buttonBack.addActionListener(this);
+        buttonLogout.addActionListener(this);
 
         f.setLayout(null);
         f.setVisible(true);
