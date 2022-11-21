@@ -44,6 +44,43 @@ public class ATMController {
         conn.disconnect();
         return bal;
     }
+    static public void payment(String idTransaction) {
+        ConnectDatabase conn = new ConnectDatabase();
+        conn.connect();
+        String idCust = "";
+        double totalBayar = 0;
+        double balCust = 0;
+        String query = "SELECT c.id_cust FROM transaction a"
+        + "INNER JOIN receipt b ON a.id_receipt = b.id_receipt"
+        + "INNER JOIN reservation c ON b.id_reservation = c.id_reservation"
+        + "WHERE a.id_transaction = '" + idTransaction + "'";
+        try {
+            Statement stmt = conn.con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                idCust = rs.getString("id_cust");
+            }
+
+            query = "SELECT total FROM transaction WHERE id_transaction = '" + idTransaction + "'";
+            rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                idCust = rs.getString("total");
+            }
+            
+            query = "SELECT balance FROM customer WHERE id_cust = '" + idCust + "'";
+            rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                idCust = rs.getString("balance");
+            }
+            
+            double newBal = balCust - totalBayar;
+            query = "UPDATE customer SET balance ='" + newBal + "'"
+                + "WHERE id_cust ='" + idCust + "'";
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        conn.disconnect();
+    }
     public static void main(String[] args) {
         System.out.println("WOI");
         setBalance(0, "udin");
