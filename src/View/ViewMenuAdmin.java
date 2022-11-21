@@ -1,11 +1,20 @@
 package View;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+
 import javax.swing.*;
 
 import Controller.AdminController;
+import Controller.ConnectDatabase;
+import Controller.SingletonDatabase;
 import Models.Menu;
+import Models.QueueTable;
 
 public class ViewMenuAdmin {
+    static ConnectDatabase conn = SingletonDatabase.getConnectObject();
     public ViewMenuAdmin() {
         JFrame f = new JFrame("Menu Admin");
         
@@ -129,6 +138,9 @@ public class ViewMenuAdmin {
             Menu newMenu = new Menu(idMenu, namaMenu, categoryTemp, price);
 
             AdminController.addMenu(newMenu);
+
+            f.dispose();
+            new ViewMenuAdmin();
         });
 
         buttonCancel.addActionListener(e ->{
@@ -136,6 +148,68 @@ public class ViewMenuAdmin {
             new ViewMenuAdmin();
         });
 
+
+        f.setSize(400, 500);
+        f.setLayout(null);
+        f.setVisible(true);
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+    public void ManageQueue() {
+        conn.connect();
+        String query = "SELECT * FROM queue";
+        ArrayList<QueueTable> queue = new ArrayList<>();
+        try {
+            Statement stmt = conn.con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                int idQueue = rs.getInt("id_queue");
+                String idCust = rs.getString("id_cust");
+                int cap = rs.getInt("capacity");
+
+                queue.add(new QueueTable(idQueue, idCust, cap));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        conn.disconnect();
+        
+        JFrame f = new JFrame("Add Menu");
+        
+        ArrayList<JCheckBox> indexQueue = new ArrayList<>();
+        int y = 20;
+        for (int i = 0; i < queue.size(); i++) {
+            indexQueue.add(new JCheckBox(
+                "Id Queue: " + queue.get(i).getIdQueue()
+                + ", Id Customer: " + queue.get(i).getIdCust()
+                + ", Capacity: " + queue.get(i).getJumlahOrang()));
+            indexQueue.get(i).setBounds(50, y, 150, 25);
+            f.add(indexQueue.get(i));
+            y += 50;
+        }
+
+        JButton buttonDelete = new JButton("Delete");
+        JButton buttonCancel = new JButton("Cancel");
+
+        buttonDelete.setBounds(90, y, 75, 25);
+        buttonCancel.setBounds(210, y, 75, 25);
+
+        f.add(buttonDelete);
+        f.add(buttonCancel);
+
+        buttonDelete.addActionListener(e ->{
+            for (int i = 0; i < queue.size(); i++) {
+                if (indexQueue.get(i).isSelected()) {
+                    AdminController.deleteUser(queue.get(i).getIdQueue());
+                }
+            }
+            f.dispose();
+            new ViewMenuAdmin();
+        });
+
+        buttonCancel.addActionListener(e ->{
+            f.dispose();
+            new ViewMenuAdmin();
+        });
 
         f.setSize(400, 500);
         f.setLayout(null);
