@@ -1,3 +1,4 @@
+package Models;
 public class Discount {
     String idDiscount;
     int discountAmount;
