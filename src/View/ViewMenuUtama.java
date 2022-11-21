@@ -59,9 +59,6 @@ public class ViewMenuUtama extends JFrame implements ActionListener {
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
-    public static void main(String[] args) {
-        new ViewMenuUtama();
-    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -79,7 +76,8 @@ public class ViewMenuUtama extends JFrame implements ActionListener {
                     id = rs.getInt("id");
                 }
                 if (id != 0) {
-                    f.setVisible(false);
+                    f.dispose();
+                    new ViewMenuCustomer();
                 } else {
                     labError.setVisible(true);
                 }
