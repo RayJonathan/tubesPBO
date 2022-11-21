@@ -12,7 +12,7 @@ public class AdminController {
         String output = "";
         try {
             PreparedStatement stat = conn.con.prepareStatement(
-                    "INSERT INTO users(userName, userEmail, password) VALUES(?,?,?,?)");
+                    "INSERT INTO users(id_menu, name_menu, category, price) VALUES(?,?,?,?)");
             stat.setString(1, menu.getIdMenu());
             stat.setString(2, menu.getName_menu());
             stat.setString(3, menu.getCategory());
