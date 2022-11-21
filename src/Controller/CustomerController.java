@@ -3,7 +3,7 @@ package Controller;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class MemberController {
+public class CustomerController {
     public static String joinMember(String user) {
         ConnectDatabase conn = new ConnectDatabase();
         conn.connect();
