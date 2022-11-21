@@ -10,19 +10,27 @@ public class UserController {
 
     static ConnectDatabase conn = SingletonDatabase.getConnectObject();
 
-    public void updateDB() {
-        Customer cust;
+    public void updateDB(String username) {
         conn.connect();
         String path1 = "UPDATE customer";
         String path2 = "UPDATE admin";
         String query = " SET firstname = ?, lastname = ?, password = ? WHERE username = ?";
-        if (cust.getStatus() == EnumStatusUser.CUSTOMER) {
-            path1 += query;
-            query = path1;
-        } else {
-            path2 += query;
-            query = path2;
+        try {
+            java.sql.Statement stat = conn.con.createStatement();
+            ResultSet result = stat.executeQuery("SELECT * FROM customer Where=" + username + ")");
+            if (result.getString("status_user").equalsIgnoreCase("Customer")) {
+                path1 += query;
+                query = path1;
+            } else {
+                path2 += query;
+                query = path2;
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error!! Gagal memasukkan data ke database");
+            System.out.println(e);
         }
+        conn.disconnect();
+
         try {
             PreparedStatement stat = conn.con.prepareStatement(query);
 
