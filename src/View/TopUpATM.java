@@ -32,10 +32,8 @@ public class TopUpATM {
             public void actionPerformed(ActionEvent e) {
                 int topupValue = Integer.parseInt(value.getText());
 
-                System.out.println(ATMController.setBalance(topupValue, username));
-                JLabel tag3 = new JLabel(ATMController.setBalance(topupValue, username));
-                tag3.setBounds(110, 130, 90, 30);
-                f.add(tag3);
+                ATMController.setBalance(topupValue, username);
+
             }
         });
     }

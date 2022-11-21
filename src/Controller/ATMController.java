@@ -1,53 +1,33 @@
 package Controller;
 
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import javax.swing.JOptionPane;
 
 import Models.Customer;
 
 public class ATMController {
 
-    static public String setBalance(double value, String username) {
-        Customer cust = new Customer();
+    static public void setBalance(double value, String username) {
+        Customer cust;
+
         ConnectDatabase conn = new ConnectDatabase();
         conn.connect();
-        String output = "";
-        double balanceTemp = 0;
-        username = "udin";
-        try {
-            java.sql.Statement stat = conn.con.createStatement();
-            ResultSet result = stat.executeQuery("SELECT balance FROM customer WHERE username='" + username + "'");
-            if (result.next()) {
-                System.out.println(result);
-                System.out.println("oke");
-            }
-        } catch (SQLException e) {
-            System.out.println(e);
-            output = "Gagal memasukan data";
-            System.out.println(output);
-        }
-        conn.disconnect();
-
         try {
             PreparedStatement stat = conn.con.prepareStatement(
-                    "INSERT INTO customer(balance) VALUES()");
-            stat.setString(1, cust.getUsername());
-            stat.setString(2, cust.getEmail());
-            stat.setString(3, cust.getPassword());
-            stat.executeUpdate();
-            output = "Berhasil memasukan data";
+                    "UPDATE customer SET balance= ?  WHERE username ='" + username + "'");
+            stat.setDouble(1, value);
+            JOptionPane.showMessageDialog(null, "Berhasil memasukkan data ke database");
         } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error!! Gagal memasukkan data ke database");
             System.out.println(e);
-            output = "Gagal memasukan data";
         }
         conn.disconnect();
-
-        return output;
     }
 
     public static void main(String[] args) {
         System.out.println("WOI");
-        System.out.println(setBalance(0, "udin"));
+        setBalance(0, "udin");
     }
 }
