@@ -40,7 +40,7 @@ public class ViewMenuUtama extends JFrame implements ActionListener {
         pass.setBounds(120, 50, 140, 20);
         login.setBounds(200, 100, 100, 40);
         register.setBounds(80, 100, 100, 40);
-        labError.setBounds(120, 60, 200, 20);
+        labError.setBounds(120, 70, 200, 20);
 
         f.add(username);
         f.add(pass);
@@ -67,19 +67,39 @@ public class ViewMenuUtama extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == login) {
             String searchUsername = username.getText();
-            String searchPass = pass.getText();
-            int id = 0;
-            String query = "SELECT * FROM user WHERE username='" + searchUsername + "' AND password='" + searchPass
-                    + "'";
+            char[] arrPass = pass.getPassword();
+            String searchPass = new String(arrPass);
+            String id = "";
+            String status = "";
+            String query = "SELECT * FROM customer WHERE username='" + searchUsername + "' AND password='" + searchPass + "'";
+            String query2 = "SELECT * FROM admin WHERE username='" + searchUsername + "' AND password='" + searchPass + "'";
             conn.connect();
             try {
                 Statement stmt = conn.con.createStatement();
                 ResultSet rs = stmt.executeQuery(query);
                 while (rs.next()) {
-                    id = rs.getInt("id");
+                    id = rs.getString("id_cust");
+                    status = "cust";
                 }
+<<<<<<< Updated upstream
                 if (id != 0) {
                     f.setVisible(false);
+=======
+                Statement stmt2 = conn.con.createStatement();
+                ResultSet rs2 = stmt2.executeQuery(query2);
+                while (rs2.next()) {
+                    id = rs2.getString("id_admin");
+                    status = "admin";
+                }
+
+                if (!id.equals("")) {
+                    if(status.equals("cust")){
+                        new ViewMenuCustomer();
+                    }else{
+                        new ViewMenuAdmin();
+                    }
+                    f.dispose();
+>>>>>>> Stashed changes
                 } else {
                     labError.setVisible(true);
                 }
