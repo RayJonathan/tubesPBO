@@ -12,6 +12,10 @@ import java.awt.event.*;
 
 import Models.Customer;
 
+/**
+ * @author bryanimanuell
+ */
+
 public class ViewRegister {
     RegisterController rc = new RegisterController();
     Customer cust;
@@ -51,7 +55,7 @@ public class ViewRegister {
                 if (!check) {
                     rc.insertData(username.getText(), email.getText(), password.getText());
                     jf.dispose();
-                    
+
                 } else {
                     JOptionPane.showMessageDialog(null, "username tersebut sudah ada");
                 }
