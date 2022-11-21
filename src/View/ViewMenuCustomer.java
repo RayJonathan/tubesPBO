@@ -61,7 +61,7 @@ public class ViewMenuCustomer extends JFrame implements ActionListener {
         }else if(e.getSource() == buttonATM){
             new MainATM();
         }else if(e.getSource() == buttonUpdateProfile){
-            // new ViewUpdateProfile();
+            new ViewUpdateProfile();
         }else if(e.getSource() == buttonLogout){
             new ViewMenuUtama();
         }
