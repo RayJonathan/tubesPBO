@@ -1,12 +1,17 @@
+package Models;
 public class Customer {
     String idCust;
-    String password;
     String username;
+    String password;
     String firstname;
     String lastname;
     String email;
     Boolean isMember;
     double balance;
+
+    public Customer(){
+        
+    }
 
     public Customer(String idCust, String password, String username, String firstname, String lastname, String email,
             Boolean isMember, double balance) {
