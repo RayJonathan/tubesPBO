@@ -5,7 +5,7 @@ import Controller.*;
 import javax.swing.*;
 
 public class BalanceATM {
-    public BalanceATM() {
+    public BalanceATM(String username) {
         JFrame f = new JFrame("BALANCE");
         JLabel tag1 = new JLabel("YOUR BALANCE IS :");
         JTextField value = new JTextField();
@@ -21,8 +21,7 @@ public class BalanceATM {
         f.setVisible(true);
         back.addActionListener((ActionListener) new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                int topupValue = Integer.parseInt(value.getText());
-                System.out.println(TopupController.setBalance(topupValue));
+
             }
         });
     }
