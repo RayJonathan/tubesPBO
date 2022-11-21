@@ -5,35 +5,25 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 
-public class ViewMenuReservation extends JFrame implements ActionListener {
+public class ViewMember extends JFrame implements ActionListener {
     ConnectDatabase conn = SingletonDatabase.getConnectObject();
     JFrame f = new JFrame("");
-    JLabel labTitle;
+    JLabel labTitle,labMember;
     JButton buttonContinue, buttonBack;
-    JRadioButton jr1, jr2, jr3;
 
-    public ViewMenuReservation(){
-        labTitle = new JLabel("Pilih Kapasitas Meja");
-        jr1 = new JRadioButton("2");
-        jr2 = new JRadioButton("4");
-        jr3 = new JRadioButton("6");
-        buttonContinue = new JButton("Continue");
+    public ViewMember(){
+        labTitle = new JLabel("Benefit Member");
+        labMember = new JLabel("<html>Bisa Gacha Diskon<br/>dimulai dari harga 75000<br/>ANDA dapat menang diskon hingga<br/>50%<html>");
+        buttonContinue = new JButton("Join Us");
         buttonBack = new JButton("Back");
 
         labTitle.setBounds(20, 20, 100, 70);
-        jr1.setBounds(30, 90, 70, 30);
-        jr2.setBounds(30, 130, 70, 30);
-        jr3.setBounds(30, 170, 70, 30);
+        labMember.setBounds(30, 90, 200, 100);
         buttonContinue.setBounds(30, 220, 120, 40);
         buttonBack.setBounds(30, 270, 120, 40);
 
-        ButtonGroup bg=new ButtonGroup();    
-        bg.add(jr1);bg.add(jr2);    
-
         f.add(labTitle);
-        f.add(jr1);
-        f.add(jr2);
-        f.add(jr3);
+        f.add(labMember);
         f.add(buttonContinue);
         f.add(buttonBack);
 
@@ -46,27 +36,15 @@ public class ViewMenuReservation extends JFrame implements ActionListener {
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
     public static void main(String[] args) {
-        new ViewMenuReservation();
+        new ViewMember();
     }
     @Override
     public void actionPerformed(ActionEvent e) {
-        int capacityValue=0;
-        if(jr1.isSelected()){
-            capacityValue = 2;
-        }
-        if(jr2.isSelected()){
-            capacityValue = 4;
-        }
-        if(jr3.isSelected()){
-            capacityValue = 6;
-        }
-        
+        f.dispose();
         if(e.getSource() == buttonContinue){
-            f.dispose();
-            new ViewQueueTable(capacityValue);
+            new ViewJoiningMember();
         }
         if(e.getSource() == buttonBack){
-            f.dispose();
             new ViewMenuCustomer();
         }
     }
