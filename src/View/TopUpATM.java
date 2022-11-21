@@ -4,8 +4,10 @@ import java.awt.event.*;
 
 import javax.swing.*;
 
+import Controller.ATMController;
+
 public class TopUpATM {
-    public TopUpATM() {
+    public TopUpATM(String username) {
 
         JFrame f = new JFrame("TOP UP");
         JLabel tag1 = new JLabel("TOP UP BALANCE");
@@ -29,6 +31,11 @@ public class TopUpATM {
         topUp.addActionListener((ActionListener) new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 int topupValue = Integer.parseInt(value.getText());
+
+                System.out.println(ATMController.setBalance(topupValue, username));
+                JLabel tag3 = new JLabel(ATMController.setBalance(topupValue, username));
+                tag3.setBounds(110, 130, 90, 30);
+                f.add(tag3);
             }
         });
     }
