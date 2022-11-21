@@ -3,6 +3,9 @@ package Controller;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import javax.swing.JOptionPane;
 
 import Models.*;
@@ -14,10 +17,43 @@ import Models.*;
 
 public class RegisterController {
     Customer cust;
-    static String template = "C011";
+    ConnectDatabase conn = new ConnectDatabase();
+
+    public static String hitungId(){
+        String idTerbaru = "";
+        ConnectDatabase conn = new ConnectDatabase();
+        String query = "SELECT MAX(id_cust) FROM customer";
+            conn.connect();
+            try {
+                Statement stmt = conn.con.createStatement();
+                ResultSet rs = stmt.executeQuery(query);
+                String idTerbesar ="";
+                if(rs.next()){
+                    idTerbesar = rs.getString("MAX(id_cust)");
+                }
+                String angkaStrTerbesar= idTerbesar.substring(1);
+                int angkaTerbesar = Integer.parseInt(angkaStrTerbesar);
+                int angkaTerbaru = angkaTerbesar + 1;
+                String angkaStrTerbaru = Integer.toString(angkaTerbaru);
+                if(angkaTerbaru<10){
+                    idTerbaru = "C00"+angkaStrTerbaru;
+                }else if(angkaTerbaru<100){
+                    idTerbaru = "C0"+angkaStrTerbaru;
+                }else{
+                    idTerbaru = "C"+angkaStrTerbaru;
+                }
+            } catch (SQLException except) {
+                except.printStackTrace();
+            }
+            conn.disconnect();
+        return idTerbaru;
+    }
+
+public static void main(String[] args) {
+    System.out.println(hitungId());
+}
 
     public void insertDB() {
-        ConnectDatabase conn = new ConnectDatabase();
         conn.connect();
         try {
             PreparedStatement stat = conn.con.prepareStatement(
@@ -43,6 +79,7 @@ public class RegisterController {
 
     public void insertData(String username, String email, String password) {
         cust = new Customer();
+        String template = hitungId();
         cust.setIdCust(template);
         cust.setUsername(username);
         cust.setPassword(password);
