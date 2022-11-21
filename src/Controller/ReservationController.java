@@ -12,6 +12,7 @@ public class ReservationController {
 
     public static String reserveMeja(String idTable, String idUser) {
         conn.connect();
+        //liatin table queue apakah ada yang mau kapasitas tertentu, jika iya maka duduki di x
         try {
             String template  = hitungId();
             PreparedStatement stat = conn.con.prepareStatement(

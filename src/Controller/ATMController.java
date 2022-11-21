@@ -18,7 +18,7 @@ public class ATMController {
             if (result.next()) {
                 balance = result.getDouble("balance");
             }
-            JOptionPane.showMessageDialog(null, "Berhasil menemukan data dari database");
+            JOptionPane.showMessageDialog(null, "Balance anda : "+balance);
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error!! Gagal memasukkan data ke database");
             System.out.println(e);

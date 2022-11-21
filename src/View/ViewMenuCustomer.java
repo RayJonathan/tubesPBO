@@ -57,11 +57,11 @@ public class ViewMenuCustomer extends JFrame implements ActionListener {
         if(e.getSource() == buttonReservation){
             new ViewMenuReservation();
         }else if(e.getSource() == buttonJoinMember){
-            new ViewMember();
+            // new ViewMember();
         }else if(e.getSource() == buttonATM){
             new MainATM();
         }else if(e.getSource() == buttonUpdateProfile){
-            new ViewUpdateProfile();
+            // new ViewUpdateProfile();
         }else if(e.getSource() == buttonLogout){
             new ViewMenuUtama();
         }
