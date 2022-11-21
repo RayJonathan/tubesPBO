@@ -18,9 +18,9 @@ public class Admin {
         this.statusUser = statusUser;
     }
 
-    // public String getIdAdmin() {
-    //     return idAdmin;
-    // }
+    public String getIdAdmin() {
+        return idAdmin;
+    }
 
     public void setIdAdmin(String idAdmin) {
         this.idAdmin = idAdmin;
