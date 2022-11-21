@@ -1,12 +1,13 @@
 package View;
 
 import java.awt.event.*;
-
+import Controller.ATMController;
 import javax.swing.*;
 
 public class MainATM {
     public MainATM() { 
         
+        String username = "123";
         JFrame f = new JFrame("ATM");
         JLabel tag = new JLabel("WELLCOME TO ATM");
         JButton topUp = new JButton("Top Up");
@@ -30,7 +31,12 @@ public class MainATM {
         });
         balance.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                new BalanceATM(username);
+                ATMController.showBalance(username);
+            }
+        });
+        back.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                new ViewMenuCustomer();
             }
         });
     }
