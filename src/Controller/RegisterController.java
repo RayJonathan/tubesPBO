@@ -58,7 +58,7 @@ public class RegisterController {
             stat.setString(4, "");
             stat.setString(6, "");
             stat.setInt(7, 0);
-            stat.setDouble(8, 10000);
+            stat.setDouble(8, (int) (Math.random()*350000) + 70000);
 
             stat.setString(5, cust.getEmail());
             stat.setString(9, cust.getPassword());

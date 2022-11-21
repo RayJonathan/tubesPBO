@@ -22,6 +22,7 @@ public class AdminController {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        conn.disconnect();
         return totalPenghasilan;
     }
     public static String totalSale() {
@@ -41,6 +42,7 @@ public class AdminController {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        conn.disconnect();
         return totalSale;
     }
     public static String deleteUser(String idQueue) {
