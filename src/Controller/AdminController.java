@@ -8,8 +8,8 @@ import java.sql.Statement;
 import Models.Menu;
 
 public class AdminController {
+    static ConnectDatabase conn = SingletonDatabase.getConnectObject();
     public static int totalIncome() {
-        ConnectDatabase conn = new ConnectDatabase();
         conn.connect();
         String query = "SELECT total FROM transaction";
         int totalPenghasilan = 0;
@@ -25,7 +25,6 @@ public class AdminController {
         return totalPenghasilan;
     }
     public static String totalSale() {
-        ConnectDatabase conn = new ConnectDatabase();
         conn.connect();
         String query = "SELECT a.name_menu, sum(b.quantity)"
         + "FROM menu a"
@@ -45,7 +44,6 @@ public class AdminController {
         return totalSale;
     }
     public static String deleteUser(String idQueue) {
-        ConnectDatabase conn = new ConnectDatabase();
         conn.connect();
         String output = "";
         String query = "DELETE FROM queue WHERE id_queue ='" + idQueue + "'";
@@ -60,7 +58,6 @@ public class AdminController {
         return output;
     }
     public static String addMenu(Menu menu) {
-        ConnectDatabase conn = new ConnectDatabase();
         conn.connect();
         String output = "";
         try {
@@ -79,7 +76,6 @@ public class AdminController {
         return output;
     }
     public static String updateStatusFood(String status, String idRecieptDetails) {
-        ConnectDatabase conn = new ConnectDatabase();
         conn.connect();
         String output = "";
         String query = "UPDATE recieptDetails SET status_food_progress ='" + status + "'"

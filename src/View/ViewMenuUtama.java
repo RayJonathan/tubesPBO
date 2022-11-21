@@ -17,8 +17,7 @@ import javax.swing.JTextField;
  * @author calvin
  */
 public class ViewMenuUtama extends JFrame implements ActionListener {
-
-    ConnectDatabase conn = new ConnectDatabase();
+    ConnectDatabase conn = SingletonDatabase.getConnectObject();
     JFrame f = new JFrame("");
     JTextField username;
     JPasswordField pass;
@@ -57,10 +56,6 @@ public class ViewMenuUtama extends JFrame implements ActionListener {
         f.setLayout(null);
         f.setVisible(true);
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    }
-
-    public static void main(String[] args) {
-        new ViewMenuUtama();
     }
 
     @Override

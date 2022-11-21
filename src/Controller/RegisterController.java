@@ -4,7 +4,6 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
 
@@ -16,12 +15,11 @@ import Models.*;
  */
 
 public class RegisterController {
-    Customer cust;
-    ConnectDatabase conn = new ConnectDatabase();
+    Customer cust; 
+    ConnectDatabase conn = SingletonDatabase.getConnectObject();
 
     public String hitungId(){
         String idTerbaru = "";
-        ConnectDatabase conn = new ConnectDatabase();
         String query = "SELECT MAX(id_cust) FROM customer";
             conn.connect();
             try {
