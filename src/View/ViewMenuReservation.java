@@ -50,7 +50,7 @@ public class ViewMenuReservation extends JFrame implements ActionListener {
     }
     @Override
     public void actionPerformed(ActionEvent e) {
-        int capacityValue;
+        int capacityValue=0;
         if(jr1.isSelected()){
             capacityValue = 2;
         }
