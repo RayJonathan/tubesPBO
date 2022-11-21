@@ -11,14 +11,13 @@ import javax.swing.JOptionPane;
 import Controller.ConnectDatabase;
 
 public class MenuMakanan {
+    static private ArrayList<String> menu = new ArrayList<>();
+
     public static void main(String[] args) {
-        String menu1 = showFood();
-        JLabel label1 = new JLabel();
-        System.out.println(showFood());
+
     }
 
-    public static String showFood() {
-        ArrayList<String> menu = new ArrayList<>();
+    public static void showFood() {
         ConnectDatabase conn = new ConnectDatabase();
         conn.connect();
         String output = "";
@@ -31,7 +30,6 @@ public class MenuMakanan {
             while (rs.next()) {
                 menu.add(rs.getString("name_menu"));
             }
-            JOptionPane.showMessageDialog(null, "Berhasil menemukan data dari database");
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error!! Gagal memasukkan data ke database");
             System.out.println(e);
@@ -39,11 +37,11 @@ public class MenuMakanan {
         for (int i = 0; i < menu.size(); i++) {
             System.out.println(menu.get(i));
         }
+        System.out.println(menu.size());
         conn.disconnect();
         tempLabel.setBounds(10, 20, 80, 30);
         frame.setSize(400, 400);
         frame.setLayout(null);
         frame.setVisible(true);
-        return output;
     }
 }
