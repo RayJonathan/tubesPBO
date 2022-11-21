@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import Models.Discount;
+import Models.Transaction;
 
 public class CustomerController {
     public static String joinMember(String user) {
@@ -73,19 +74,24 @@ public class CustomerController {
         conn.disconnect();
         return output;
     }
-    public static String checkTransaction(){
+    public static ArrayList<Transaction> checkTransaction(String user){
         ConnectDatabase conn = new ConnectDatabase();
         conn.connect();
-        String output = "";
-        String query = "SELECT * FROM transaction";
+        String query = "SELECT a.* FROM transaction a"
+        + "INNER JOIN receipt b ON a.id_receipt = b.id_receipt"
+        + "INNER JOIN reservation c ON b.id_reservation = c.id_reservation"
+        + "WHERE c.id_cust = '" + user + "'";
+        ArrayList<Transaction> transaksi = new ArrayList<>();
         try {
-            Statement stmt = conn.con.createStatement();
-            stmt.executeUpdate(query);
-            output = "Berhasil memasukan data";
+            Statement stmt = conn.con.createStatement(); 
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                transaksi.add(new Transaction(rs.getString("id_transaction"), rs.getInt("total")));
+            }
         } catch (SQLException e) {
-            output = "Gagal memasukan data";
-        }
+            e.printStackTrace();
+        }  
         conn.disconnect();
-        return output;
+        return transaksi;
     }
 }
