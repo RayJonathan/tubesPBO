@@ -35,7 +35,7 @@ public class MenuMakanan {
     // frame.setVisible(true);
     // }
 
-    public static void main(String[] Args) {
+    public static void orderFood() {
         showFood();
         JFrame frame = new JFrame("Menu Makanan");
         ArrayList<String> namaMakanan = new ArrayList<>();
