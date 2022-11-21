@@ -2,6 +2,8 @@ package View;
 
 import javax.swing.*;
 
+import Controller.AdminController;
+
 public class ViewMenuAdmin {
     JButton buttonTotalIncome, buttonTotalSale, buttonManageQueue, buttonAddMenu, buttonUpdateStatusFood;
     public ViewMenuAdmin() {
@@ -13,6 +15,7 @@ public class ViewMenuAdmin {
         JButton buttonManageQueue = new JButton("Manage Queue");
         JButton buttonAddMenu = new JButton("Add Menu");
         JButton buttonUpdateStatusFood = new JButton("Update Status Food");
+        JButton buttonLogout = new JButton("Logout");
 
         labTitle.setBounds(150, 20, 100, 70);
         buttonTotalIncome.setBounds(30, 90, 150, 70);
@@ -20,6 +23,7 @@ public class ViewMenuAdmin {
         buttonManageQueue.setBounds(30, 170, 150, 70);
         buttonAddMenu.setBounds(190, 170, 150, 70);
         buttonUpdateStatusFood.setBounds(110, 250, 150, 70);
+        buttonLogout.setBounds(135, 330, 100, 50);
 
         f.add(labTitle);
         f.add(buttonTotalIncome);
@@ -27,13 +31,29 @@ public class ViewMenuAdmin {
         f.add(buttonManageQueue);
         f.add(buttonAddMenu);
         f.add(buttonUpdateStatusFood);
+        f.add(buttonLogout);
 
-        f.setSize(400, 400);
-        buttonTotalIncome.addActionListener(e ->{});
-        buttonTotalSale.addActionListener(e ->{});
+        f.setSize(400, 500);
+        buttonTotalIncome.addActionListener(e ->{
+            JOptionPane.showMessageDialog(null, 
+            "Total seluruh pendapatan sebesar: " + AdminController.totalIncome());
+        });
+
+        buttonTotalSale.addActionListener(e ->{
+            JOptionPane.showMessageDialog(null, 
+            "Total penjualan: \n" + AdminController.totalSale());
+        });
+
         buttonManageQueue.addActionListener(e ->{});
+
         buttonAddMenu.addActionListener(e ->{});
+        
         buttonUpdateStatusFood.addActionListener(e ->{});
+
+        buttonLogout.addActionListener(e ->{
+            f.dispose();
+            new ViewMenuUtama();
+        });
 
         f.setLayout(null);
         f.setVisible(true);
