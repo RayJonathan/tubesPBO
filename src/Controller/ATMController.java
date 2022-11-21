@@ -1,7 +1,9 @@
 package Controller;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import javax.swing.JOptionPane;
 
@@ -25,7 +27,23 @@ public class ATMController {
         }
         conn.disconnect();
     }
-
+    static public double checkBalance(String idCustomer) {
+        ConnectDatabase conn = new ConnectDatabase();
+        conn.connect();
+        String query = "SELECT balance FROM customer WHERE id_cust = '" + idCustomer + "'";
+        double bal = 0;
+        try {
+            Statement stmt = conn.con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                bal = rs.getDouble("balance");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        conn.disconnect();
+        return bal;
+    }
     public static void main(String[] args) {
         System.out.println("WOI");
         setBalance(0, "udin");
