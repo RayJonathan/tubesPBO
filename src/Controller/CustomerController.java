@@ -10,11 +10,12 @@ import Models.Discount;
 import Models.Transaction;
 
 public class CustomerController {
-    public static String joinMember(String user) {
+    public static String joinMember(String idCust) {
         ConnectDatabase conn = new ConnectDatabase();
         conn.connect();
         String output = "";
-        String query = "UPDATE customer SET isMember ='" + 1 + "'";
+        String query = "UPDATE customer SET isMember ='" + 1 + "'"
+        + "WHERE id_cust ='" + idCust + "'";;
         try {
             Statement stmt = conn.con.createStatement();
             stmt.executeUpdate(query);
@@ -74,13 +75,13 @@ public class CustomerController {
         conn.disconnect();
         return output;
     }
-    public static ArrayList<Transaction> checkTransaction(String user){
+    public static ArrayList<Transaction> checkTransaction(String idCust){
         ConnectDatabase conn = new ConnectDatabase();
         conn.connect();
         String query = "SELECT a.* FROM transaction a"
         + "INNER JOIN receipt b ON a.id_receipt = b.id_receipt"
         + "INNER JOIN reservation c ON b.id_reservation = c.id_reservation"
-        + "WHERE c.id_cust = '" + user + "'";
+        + "WHERE c.id_cust = '" + idCust + "'";
         ArrayList<Transaction> transaksi = new ArrayList<>();
         try {
             Statement stmt = conn.con.createStatement(); 
