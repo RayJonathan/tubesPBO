@@ -9,17 +9,9 @@ import javax.swing.*;
 import Controller.*;
 
 public class MenuMakanan {
-<<<<<<< Updated upstream
     static private ArrayList<String> menu = new ArrayList<>();
 
-=======
-<<<<<<< HEAD
     static ConnectDatabase conn = SingletonDatabase.getConnectObject();
-=======
-    static private ArrayList<String> menu = new ArrayList<>();
-
->>>>>>> 30ef60510d7cbd1dde973e57ecc653697d906948
->>>>>>> Stashed changes
     public static void main(String[] args) {
         JFrame f = new JFrame();
         for (int i = 0; i < menu.size(); i++) {
@@ -34,17 +26,8 @@ public class MenuMakanan {
         f.setVisible(true);
     }
 
-<<<<<<< Updated upstream
-=======
-<<<<<<< HEAD
     public static String showFood() {
         ArrayList<String> menu = new ArrayList<>();
-        
-=======
->>>>>>> Stashed changes
-    public static void showFood() {
-        ConnectDatabase conn = new ConnectDatabase();
->>>>>>> 30ef60510d7cbd1dde973e57ecc653697d906948
         conn.connect();
 
         try {
