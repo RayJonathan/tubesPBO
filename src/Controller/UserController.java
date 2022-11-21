@@ -1,7 +1,6 @@
 package Controller;
 
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import Models.*;
 import javax.swing.JOptionPane;
@@ -11,7 +10,7 @@ public class UserController {
     static ConnectDatabase conn = SingletonDatabase.getConnectObject();
 
     public void updateDB() {
-        Customer cust;
+        Customer cust = new Customer();
         conn.connect();
         String path1 = "UPDATE customer";
         String path2 = "UPDATE admin";
