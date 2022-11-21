@@ -2,6 +2,7 @@ public class Transaction {
     String idTransaction;
     double total;
 
+    // test
     public Transaction(String idTransaction, double total) {
         this.idTransaction = idTransaction;
         this.total = total;
