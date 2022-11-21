@@ -24,8 +24,25 @@ public class AdminController {
         }
         return totalPenghasilan;
     }
-    public static void totalSale() {
-        
+    public static String totalSale() {
+        ConnectDatabase conn = new ConnectDatabase();
+        conn.connect();
+        String query = "SELECT a.name_menu, sum(b.quantity)"
+        + "FROM menu a"
+        + "INNER JOIN receiptdetails b ON a.id_menu = b.id_menu"
+        + "ORDER BY a.id_menu";
+
+        String totalSale = "";
+        try {
+            Statement stmt = conn.con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                totalSale += rs.getString(0) + ": " + rs.getInt(1) + "\n";
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return totalSale;
     }
     public static String deleteUser(String idQueue) {
         ConnectDatabase conn = new ConnectDatabase();
