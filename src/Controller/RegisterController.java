@@ -33,6 +33,7 @@ public class RegisterController {
     }
 
     public void insertData(String username, String email, String password) {
+        cust = new Customer();
         cust.setUsername(username);
         cust.setPassword(password);
         cust.setEmail(email);
