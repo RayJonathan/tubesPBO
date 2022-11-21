@@ -5,7 +5,8 @@ import java.awt.event.*;
 import javax.swing.*;
 
 public class MainATM {
-    public MainATM(String username) {
+    public MainATM() { 
+        
         JFrame f = new JFrame("ATM");
         JLabel tag = new JLabel("WELLCOME TO ATM");
         JButton topUp = new JButton("Top Up");

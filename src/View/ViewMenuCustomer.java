@@ -11,7 +11,6 @@ public class ViewMenuCustomer extends JFrame implements ActionListener {
     ConnectDatabase conn = SingletonDatabase.getConnectObject();
     JFrame f = new JFrame("");
     JLabel labTitle;
-    JButton buttonReservation, buttonJoinMember, buttonATM, buttonUpdateProfile, buttonBack;
     JButton buttonReservation, buttonJoinMember, buttonATM, buttonUpdateProfile, buttonLogout;
 
     public static void main(String[] args) {
@@ -26,13 +25,6 @@ public class ViewMenuCustomer extends JFrame implements ActionListener {
         buttonUpdateProfile = new JButton("Update Profile");
         buttonLogout = new JButton("LogOut");
 
-        labTitle.setBounds(20, 0, 100, 50);
-        buttonReservation.setBounds(40, 40, 100, 50);
-        buttonJoinMember.setBounds(150, 40, 100, 50);
-        buttonATM.setBounds(40, 120, 100, 50);
-        buttonUpdateProfile.setBounds(160, 120, 100, 50);
-        buttonBack.setBounds(40, 190, 100, 20);
-
         labTitle.setBounds(20, 20, 100, 70);
         buttonReservation.setBounds(30, 90, 150, 70);
         buttonJoinMember.setBounds(190, 90, 150, 70);
@@ -45,8 +37,6 @@ public class ViewMenuCustomer extends JFrame implements ActionListener {
         f.add(buttonJoinMember);
         f.add(buttonATM);
         f.add(buttonUpdateProfile);
-
-        f.add(buttonBack);
         f.add(buttonLogout);
 
         f.setSize(400, 400);
@@ -63,8 +53,17 @@ public class ViewMenuCustomer extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == buttonATM) {
-
+        f.dispose();
+        if(e.getSource() == buttonReservation){
+            new ViewMenuReservation();
+        }else if(e.getSource() == buttonJoinMember){
+            new ViewMember();
+        }else if(e.getSource() == buttonATM){
+            new MainATM();
+        }else if(e.getSource() == buttonUpdateProfile){
+            new ViewUpdateProfile();
+        }else if(e.getSource() == buttonLogout){
+            new ViewMenuUtama();
         }
     }
 
