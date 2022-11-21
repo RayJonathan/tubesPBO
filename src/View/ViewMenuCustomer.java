@@ -27,11 +27,11 @@ public class ViewMenuCustomer extends JFrame implements ActionListener {
         buttonBack = new JButton("back");
 
         labTitle.setBounds(20, 20, 100, 20);
-        buttonReservation.setBounds(20, 20, 100, 20);
-        buttonJoinMember.setBounds(20, 20, 100, 20);
-        buttonATM.setBounds(20, 20, 100, 20);
-        buttonUpdateProfile.setBounds(20, 20, 100, 20);
-        buttonBack.setBounds(20, 20, 100, 20);
+        buttonReservation.setBounds(40, 20, 100, 20);
+        buttonJoinMember.setBounds(40, 20, 100, 20);
+        buttonATM.setBounds(80, 20, 100, 20);
+        buttonUpdateProfile.setBounds(80, 20, 100, 20);
+        buttonBack.setBounds(360, 20, 100, 20);
 
         f.add(labTitle);
         f.add(buttonReservation);
@@ -56,4 +56,5 @@ public class ViewMenuCustomer extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
 
     }
+    
 }
