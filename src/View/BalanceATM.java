@@ -21,7 +21,7 @@ public class BalanceATM {
         f.setVisible(true);
         back.addActionListener((ActionListener) new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-
+                ATMController.showBalance(username);
             }
         });
     }
