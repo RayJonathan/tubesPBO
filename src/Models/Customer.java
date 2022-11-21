@@ -1,4 +1,5 @@
 package Models;
+
 public class Customer {
     String idCust;
     String username;
@@ -9,8 +10,8 @@ public class Customer {
     Boolean isMember;
     double balance;
 
-    public Customer(){
-        
+    public Customer() {
+
     }
 
     public Customer(String idCust, String password, String username, String firstname, String lastname, String email,
