@@ -35,10 +35,10 @@ public class ViewQueueTable extends JFrame implements ActionListener {
     }
     @Override
     public void actionPerformed(ActionEvent e) {
+        f.dispose();
         if (e.getSource() == buttonContinue) {
             new MenuMakanan();
         } else if (e.getSource() == buttonBack) {
-            f.dispose();
             new ViewMenuCustomer();
         }
     }
