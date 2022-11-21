@@ -4,9 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
+import javax.swing.*;
 
 import Controller.ConnectDatabase;
 
@@ -14,15 +12,22 @@ public class MenuMakanan {
     static private ArrayList<String> menu = new ArrayList<>();
 
     public static void main(String[] args) {
+        JFrame f = new JFrame();
+        for (int i = 0; i < menu.size(); i++) {
 
+        }
+        JLabel menu1 = new JLabel();
+        JButton b = new JButton("click");
+        b.setBounds(130, 100, 100, 40);
+        f.add(b);
+        f.setSize(400, 500);
+        f.setLayout(null);
+        f.setVisible(true);
     }
 
     public static void showFood() {
         ConnectDatabase conn = new ConnectDatabase();
         conn.connect();
-        String output = "";
-        JLabel tempLabel = new JLabel();
-        JFrame frame = new JFrame("Frame");
 
         try {
             java.sql.Statement stat = conn.con.createStatement();
@@ -39,9 +44,6 @@ public class MenuMakanan {
         }
         System.out.println(menu.size());
         conn.disconnect();
-        tempLabel.setBounds(10, 20, 80, 30);
-        frame.setSize(400, 400);
-        frame.setLayout(null);
-        frame.setVisible(true);
+
     }
 }
