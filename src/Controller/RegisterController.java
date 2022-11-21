@@ -8,6 +8,7 @@ import javax.swing.JOptionPane;
 import Models.*;
 
 /**
+ *
  * @author bryanimanuell
  */
 
@@ -19,7 +20,7 @@ public class RegisterController {
         conn.connect();
         try {
             PreparedStatement stat = conn.con.prepareStatement(
-                    "INSERT INTO users(userName, userEmail, password) VALUES(?,?,?)");
+                    "INSERT INTO customer(username, email, password) VALUES(?,?,?)");
             stat.setString(1, cust.getUsername());
             stat.setString(2, cust.getEmail());
             stat.setString(3, cust.getPassword());
@@ -33,6 +34,7 @@ public class RegisterController {
     }
 
     public void insertData(String username, String email, String password) {
+        cust = new Customer();
         cust.setUsername(username);
         cust.setPassword(password);
         cust.setEmail(email);

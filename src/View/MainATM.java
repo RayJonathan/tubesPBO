@@ -5,7 +5,7 @@ import java.awt.event.*;
 import javax.swing.*;
 
 public class MainATM {
-    public MainATM() {
+    public MainATM(String username) {
         JFrame f = new JFrame("ATM");
         JLabel tag = new JLabel("WELLCOME TO ATM");
         JButton topUp = new JButton("Top Up");
@@ -24,12 +24,12 @@ public class MainATM {
         f.setVisible(true);
         topUp.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                new TopUpATM();
+                new TopUpATM(username);
             }
         });
         balance.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                new BalanceATM();
+                new BalanceATM(username);
             }
         });
     }

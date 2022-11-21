@@ -87,7 +87,7 @@ public class ViewMenuUtama extends JFrame implements ActionListener {
             conn.disconnect();
         } else if (e.getSource() == register) {
             f.dispose();
-            new RegisterController();
+            new ViewRegister();
         }
     }
 }
