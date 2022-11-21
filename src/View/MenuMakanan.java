@@ -9,59 +9,59 @@ import javax.swing.*;
 import Controller.*;
 
 public class MenuMakanan {
-<<<<<<< Updated upstream
-    static private ArrayList<String> menu = new ArrayList<>();
-
-=======
-<<<<<<< HEAD
     static ConnectDatabase conn = SingletonDatabase.getConnectObject();
-=======
+
     static private ArrayList<String> menu = new ArrayList<>();
 
->>>>>>> 30ef60510d7cbd1dde973e57ecc653697d906948
->>>>>>> Stashed changes
     public static void main(String[] args) {
         showFood();
-        JFrame frame = new JFrame();
+        JFrame frame = new JFrame("Menu Makanan");
 
         JPanel board = new JPanel();
-
+        int counter = 0;
         board.setLayout(null);
-        board.setBounds(0, 0, 500, 500);
+        board.setBounds(0, 0, 1500, 990);
+        int x = 20;
+        for (int i = 0, y = 20; i < menu.size(); i++, y += 50) {
 
-        for (int i = 0, x = 0; i < menu.size(); i++, x += 50) {
-            for (int j = 0, y = 0; j < menu.size(); j++, y += 50) {
-                JLabel lab = new JLabel(" " + menu.get(j));
-                lab.setOpaque(true);
-                lab.setBounds(x, y, 50, 50);
-                board.add(lab);
-            }
+            JLabel lab = new JLabel(" " + menu.get(i));
+            JCheckBox check = new JCheckBox();
+            JTextField quantity = new JTextField();
+            quantity.setBounds(x + 150 + 75, y, 75, 30);
+            check.setBounds(x + 150, y, 75, 30);
+            lab.setBounds(x, y, 145, 30);
+            board.add(check);
+            board.add(lab);
+            board.add(quantity);
+            System.out.println(y);
+            counter += y;
         }
-
-        frame.setSize(400, 400);
+        frame.setSize(500, 500);
         JLabel ladder = new JLabel();
         ladder.setBounds(0, 0, 50, 200);
         ladder.setOpaque(true);
-
         JLayeredPane pane = frame.getLayeredPane();
-
         pane.add(ladder, new Integer(2)); // front
         pane.add(board, new Integer(1)); // back
-
+        JButton submit = new JButton("SUBMIT");
+        submit.setBounds(250, counter, 130, 50);
+        board.add(submit);
         frame.setVisible(true);
     }
 
-<<<<<<< Updated upstream
-=======
-<<<<<<< HEAD
-    public static String showFood() {
-        ArrayList<String> menu = new ArrayList<>();
-        
-=======
->>>>>>> Stashed changes
+    // public static void main(String[] Args) {
+    // showFood();
+    // JFrame frame = new JFrame("Menu Makanan");
+    // JLabel label1 = new JLabel(menu.get(0));
+    // label1.setBounds(20, 20, 50, 30);
+    // frame.setSize(400, 400);
+    // frame.add(label1);
+    // frame.setVisible(true);
+
+    // }
+
     public static void showFood() {
         ConnectDatabase conn = new ConnectDatabase();
->>>>>>> 30ef60510d7cbd1dde973e57ecc653697d906948
         conn.connect();
 
         try {
@@ -70,6 +70,7 @@ public class MenuMakanan {
             while (rs.next()) {
                 menu.add(rs.getString("name_menu"));
             }
+            rs.toString();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error!! Gagal memasukkan data ke database");
             System.out.println(e);
@@ -79,6 +80,5 @@ public class MenuMakanan {
         }
         System.out.println(menu.size());
         conn.disconnect();
-
     }
 }

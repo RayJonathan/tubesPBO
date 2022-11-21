@@ -7,11 +7,11 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-public class ViewMenuCustomer extends JFrame implements ActionListener { 
+public class ViewMenuCustomer extends JFrame implements ActionListener {
     ConnectDatabase conn = SingletonDatabase.getConnectObject();
     JFrame f = new JFrame("");
     JLabel labTitle;
-    JButton buttonReservation, buttonJoinMember, buttonATM, buttonUpdateProfile,buttonBack;
+    JButton buttonReservation, buttonJoinMember, buttonATM, buttonUpdateProfile, buttonBack;
 
     public ViewMenuCustomer() {
         labTitle = new JLabel("Hey");
@@ -21,12 +21,12 @@ public class ViewMenuCustomer extends JFrame implements ActionListener {
         buttonUpdateProfile = new JButton("Update Profile");
         buttonBack = new JButton("back");
 
-        labTitle.setBounds(20, 20, 100, 50);
+        labTitle.setBounds(20, 0, 100, 50);
         buttonReservation.setBounds(40, 40, 100, 50);
-        buttonJoinMember.setBounds(60, 40, 100, 50);
-        buttonATM.setBounds(40, 60, 100, 50);
-        buttonUpdateProfile.setBounds(60, 60, 100, 50);
-        buttonBack.setBounds(360, 360, 100, 20);
+        buttonJoinMember.setBounds(150, 40, 100, 50);
+        buttonATM.setBounds(40, 120, 100, 50);
+        buttonUpdateProfile.setBounds(160, 120, 100, 50);
+        buttonBack.setBounds(40, 190, 100, 20);
 
         f.add(labTitle);
         f.add(buttonReservation);
@@ -34,7 +34,7 @@ public class ViewMenuCustomer extends JFrame implements ActionListener {
         f.add(buttonATM);
         f.add(buttonUpdateProfile);
         f.add(buttonBack);
-        
+
         f.setSize(400, 400);
         buttonReservation.addActionListener(this);
         buttonJoinMember.addActionListener(this);
@@ -49,7 +49,9 @@ public class ViewMenuCustomer extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == buttonATM) {
 
+        }
     }
-    
+
 }
