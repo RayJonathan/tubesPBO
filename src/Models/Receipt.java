@@ -1,3 +1,4 @@
+package Models;
 import java.sql.Date;
 
 public class Receipt {

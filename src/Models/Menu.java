@@ -1,3 +1,4 @@
+package Models;
 public class Menu {
     String idMenu;
     String name_menu;

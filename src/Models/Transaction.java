@@ -1,3 +1,4 @@
+package Models;
 public class Transaction {
     String idTransaction;
     double total;

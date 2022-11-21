@@ -1,3 +1,4 @@
+package Models;
 public class QueueTable {
     String idQueue;
     String idReservation;
