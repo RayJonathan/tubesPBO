@@ -63,8 +63,17 @@ public class ViewMenuCustomer extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == buttonATM) {
-
+        f.dispose();
+        if(e.getSource() == buttonReservation){
+            new ViewMenuReservation();
+        }else if(e.getSource() == buttonJoinMember){
+            new ViewMember();
+        }else if(e.getSource() == buttonATM){
+            new MainATM();
+        }else if(e.getSource() == buttonUpdateProfile){
+            new ViewUpdateProfile();
+        }else if(e.getSource() == buttonLogout){
+            new ViewMenuUtama();
         }
     }
 
