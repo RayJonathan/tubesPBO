@@ -38,6 +38,7 @@ public class TopUpATM {
         });
         back.addActionListener((ActionListener) new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                f.dispose();
                 new MainATM();
 
             }

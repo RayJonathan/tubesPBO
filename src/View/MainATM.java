@@ -26,16 +26,19 @@ public class MainATM {
         f.setVisible(true);
         topUp.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                f.dispose();
                 new TopUpATM(username);
             }
         });
         balance.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                f.dispose();
                 ATMController.showBalance(username);
             }
         });
         back.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                f.dispose();
                 new ViewMenuCustomer();
             }
         });
