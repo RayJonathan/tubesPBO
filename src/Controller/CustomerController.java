@@ -13,7 +13,7 @@ public class CustomerController {
         ConnectDatabase conn = new ConnectDatabase();
         conn.connect();
         String output = "";
-        String query = "UPDATE customer SET isMember ='" + 1 + "'" + "WHERE id_cust ='" + user + "'";
+        String query = "UPDATE customer SET isMember ='" + 1 + "'";
         try {
             Statement stmt = conn.con.createStatement();
             stmt.executeUpdate(query);

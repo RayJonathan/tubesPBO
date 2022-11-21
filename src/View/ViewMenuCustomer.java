@@ -24,7 +24,7 @@ public class ViewMenuCustomer extends JFrame implements ActionListener {
         buttonJoinMember = new JButton("Join Membership");
         buttonATM = new JButton("Balance");
         buttonUpdateProfile = new JButton("Update Profile");
-        buttonBack = new JButton("back")
+        buttonBack = new JButton("back");
 
         labTitle.setBounds(20, 20, 100, 20);
         buttonReservation.setBounds(20, 20, 100, 20);
