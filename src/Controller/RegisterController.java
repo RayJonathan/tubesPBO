@@ -19,7 +19,7 @@ public class RegisterController {
     Customer cust;
     ConnectDatabase conn = new ConnectDatabase();
 
-    public static String hitungId(){
+    public String hitungId(){
         String idTerbaru = "";
         ConnectDatabase conn = new ConnectDatabase();
         String query = "SELECT MAX(id_cust) FROM customer";
@@ -48,10 +48,6 @@ public class RegisterController {
             conn.disconnect();
         return idTerbaru;
     }
-
-public static void main(String[] args) {
-    System.out.println(hitungId());
-}
 
     public void insertDB() {
         conn.connect();
