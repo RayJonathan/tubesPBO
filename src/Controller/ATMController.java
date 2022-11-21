@@ -47,6 +47,7 @@ public class ATMController {
     }
 
     public static void main(String[] args) {
+        System.out.println("WOI");
         System.out.println(setBalance(0, "udin"));
     }
 }
