@@ -1,9 +1,11 @@
 package View;
 
+import java.awt.event.*;
+
 import javax.swing.*;
 
 public class BalanceATM {
-    public static void main(String[] args) {
+    public BalanceATM() {
         JFrame f = new JFrame("BALANCE");
         JLabel tag1 = new JLabel("YOUR BALANCE IS :");
         JTextField value = new JTextField();
@@ -17,5 +19,10 @@ public class BalanceATM {
         f.setSize(400, 400);
         f.setLayout(null);
         f.setVisible(true);
+        back.addActionListener((ActionListener) new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                int topupValue = Integer.parseInt(value.getText());
+            }
+        });
     }
 }
