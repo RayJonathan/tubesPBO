@@ -81,10 +81,7 @@ public class ViewMenuUtama extends JFrame implements ActionListener {
                     id = rs.getString("id_cust");
                     status = "cust";
                 }
-<<<<<<< Updated upstream
-                if (id != 0) {
-                    f.setVisible(false);
-=======
+
                 Statement stmt2 = conn.con.createStatement();
                 ResultSet rs2 = stmt2.executeQuery(query2);
                 while (rs2.next()) {
@@ -99,7 +96,6 @@ public class ViewMenuUtama extends JFrame implements ActionListener {
                         new ViewMenuAdmin();
                     }
                     f.dispose();
->>>>>>> Stashed changes
                 } else {
                     labError.setVisible(true);
                 }
