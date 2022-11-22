@@ -60,6 +60,8 @@ public class ViewMenuAdmin {
         });
 
         buttonAddMenu.addActionListener(e -> {
+            f.dispose();
+            AddMenu();
         });
 
         buttonUpdateStatusFood.addActionListener(e -> {
