@@ -25,8 +25,8 @@ public class ViewUpdateProfile extends JFrame implements ActionListener {
         firstname = new JTextField();
         lastname = new JTextField();
         password = new JPasswordField();
-        JButton buttonUpdateProfile = new JButton("Update Profile");
-        JButton buttonBack = new JButton("Back");
+        buttonUpdateProfile = new JButton("Update Profile");
+        buttonBack = new JButton("Back");
 
         f.setSize(400, 300);
         labFName.setBounds(20, 20, 100, 30);
@@ -50,23 +50,27 @@ public class ViewUpdateProfile extends JFrame implements ActionListener {
 
         f.add(buttonUpdateProfile);
         f.add(buttonBack);
+
+        buttonUpdateProfile.addActionListener(this);
+        buttonBack.addActionListener(this);
+
         f.setLayout(null);
         f.setVisible(true);
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        f.dispose();
         if (e.getSource() == buttonUpdateProfile) {
+            System.out.println("haa");
+            f.dispose();
             new UserController();
         } else if (e.getSource() == buttonBack) {
             new ViewMenuCustomer();
-        } else if (e.getSource() == buttonBack){
-            new ViewMenuAdmin();
-        }
+        } 
     }
 
-    public static void main(String[] args) {
-        new ViewUpdateProfile();
-    }
+    // public static void main(String[] args) {
+    //     new ViewUpdateProfile();
+    // }
 }
