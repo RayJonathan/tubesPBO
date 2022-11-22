@@ -2,20 +2,14 @@ package Controller;
 
 import java.sql.ResultSet;
 
-import com.mysql.cj.xdevapi.*;
-
 import Models.*;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-import java.sql.ResultSet;
 import java.sql.Statement;
-import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
-
-import Models.*;
 
 public class FoodOrderController {
 
