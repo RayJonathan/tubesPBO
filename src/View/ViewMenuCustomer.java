@@ -13,10 +13,6 @@ public class ViewMenuCustomer extends JFrame implements ActionListener {
     JLabel labTitle;
     JButton buttonReservation, buttonJoinMember, buttonATM, buttonUpdateProfile, buttonLogout;
 
-    public static void main(String[] args) {
-        new ViewMenuCustomer();
-    }
-
     public ViewMenuCustomer() {
         labTitle = new JLabel("Hey");
         buttonReservation = new JButton("Reserve Table");
