@@ -7,6 +7,7 @@ import javax.swing.JOptionPane;
 
 import Controller.ConnectDatabase;
 import Controller.SingletonDatabase;
+import Models.EnumStatusFood;
 import Models.ReceiptDetails;
 import Models.Transaction;
 
@@ -26,12 +27,13 @@ public class ViewTransaction {
         JFrame frame = new JFrame("Transaksi");
         Transaction transactions = getTransaction("TRA001");
         ArrayList<ReceiptDetails> listMakanan = getRecieptDetail(transactions.getIdReciept());
+        ArrayList<Double> totalHargaMakanan = getTotal(transactions.getIdReciept());
         
         int y = 20;
         for (int i = 0; i < listMakanan.size(); i++) {
             JLabel listPembelian = new JLabel(listMakanan.get(i).getQuantity() + "x "
                 + getNamaMakanan(listMakanan.get(i).getIdMenu()));
-            JLabel listHarga = new JLabel("Rp " + listMakanan.get(i).getTotal());
+            JLabel listHarga = new JLabel("Rp " + totalHargaMakanan.get(i));
 
             listPembelian.setBounds(50, y, 150, 25);
             listHarga.setBounds(200, y, 150, 25);
@@ -98,9 +100,8 @@ public class ViewTransaction {
                 String idReceipt = rs.getString("id_receipt");
                 String idMenu = rs.getString("id_menu");
                 int quantity = rs.getInt("quantity");
-                String status = rs.getString("status_food_progress");
                 double total = rs.getDouble("subtotal");
-                receiptDetails.add(new ReceiptDetails(idReceiptDetails, idReceipt, idMenu, quantity, status, total));
+                receiptDetails.add(new ReceiptDetails(idReceiptDetails, idReceipt, idMenu, quantity, EnumStatusFood.DELIVERED));
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error!! Gagal memasukkan data ke database");
@@ -108,6 +109,23 @@ public class ViewTransaction {
         }
         conn.disconnect();
         return receiptDetails;
+    }
+    public ArrayList<Double> getTotal(String idReciept){
+        ArrayList<Double> totalReciept = new ArrayList<>();
+        ConnectDatabase conn = new ConnectDatabase();
+        conn.connect();
+        try {
+            java.sql.Statement stat = conn.con.createStatement();
+            ResultSet rs = stat.executeQuery("SELECT * FROM receiptdetails WHERE id_receipt = '" + idReciept + "'");
+            while (rs.next()) {
+                totalReciept.add(rs.getDouble("subtotal"));
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error!! Gagal memasukkan data ke database");
+            System.out.println(e);
+        }
+        conn.disconnect();
+        return totalReciept;
     }
     public String getNamaMakanan(String idMenu){
         String nama = "";
