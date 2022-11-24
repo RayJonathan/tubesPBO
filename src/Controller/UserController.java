@@ -12,11 +12,11 @@ public class UserController {
     static public void updateDB(EnumStatusUser status) {
         SingletonAdmin sa = SingletonAdmin.getInstance();
         SingletonCustomer sc = SingletonCustomer.getInstance();
-        //update yg di sql skrng
+        // update yg di sql skrng
         conn.connect();
         String path1 = "UPDATE customer";
         String path2 = "UPDATE admin";
-        String firstname ="",lastname="", password = "", username = "";
+        String firstname = "", lastname = "", password = "", username = "";
         String query = "";
         if (status == EnumStatusUser.CUSTOMER) {
             Customer cust = sc.getCurrentCustomer();
@@ -24,14 +24,16 @@ public class UserController {
             lastname = cust.getLastname();
             password = cust.getPassword();
             username = cust.getUsername();
-            query = path1+" SET firstname = '"+firstname+"', lastname = '"+lastname+"', password = '"+password+"' WHERE username = '"+username+"'";
+            query = path1 + " SET firstname = '" + firstname + "', lastname = '" + lastname + "', password = '"
+                    + password + "' WHERE username = '" + username + "'";
         } else {
             Admin admin = sa.getCurrentAdmin();
             firstname = admin.getFirstname();
             lastname = admin.getLastname();
             password = admin.getPassword();
             username = admin.getUsername();
-            query = path2+" SET firstname = '"+firstname+"', lastname = '"+lastname+"', password = '"+password+"' WHERE username = '"+username+"'";
+            query = path2 + " SET firstname = '" + firstname + "', lastname = '" + lastname + "', password = '"
+                    + password + "' WHERE username = '" + username + "'";
         }
 
         try {
