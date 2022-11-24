@@ -64,7 +64,7 @@ public class FoodOrderController {
         conn.disconnect();
     }
 
-    public static void insertDB(String idMenu, int qty, double price, Receipt receipt) {
+    public static void insertDB(String idMenu, int qty, double price, String idReceipt) {
         conn.connect();
         try {
             PreparedStatement pstat = conn.con.prepareStatement(
@@ -74,7 +74,7 @@ public class FoodOrderController {
             pstat.setString(2, idReceipt);
             pstat.setString(3, idMenu);
             pstat.setInt(4, qty);
-            pstat.setString(5, "Pending");
+            pstat.setString(5, EnumStatusFood.INPROGRESS.toString());
             double subtotal = price * qty;
             pstat.setDouble(6, subtotal);
             pstat.executeUpdate();
