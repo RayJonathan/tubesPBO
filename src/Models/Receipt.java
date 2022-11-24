@@ -7,3 +7,4 @@ public class Receipt {
     String idCust;
     Date date;
 }
+//
