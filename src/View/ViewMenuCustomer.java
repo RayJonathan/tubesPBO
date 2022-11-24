@@ -21,12 +21,11 @@ public class ViewMenuCustomer extends JFrame implements ActionListener {
 
     public ViewMenuCustomer() {        
         String text = "";
-        QueueController.cekValiditasQueue();
-        QueueTable q = sq.getcurrentQueue();
-        if(q == null){
-            text = "<html>Selamat Datang, "+cust.getFirstname();
-        }else{
+        boolean valid = QueueController.cekValiditasQueue();
+        if(valid == true){
             text = "<html>Selamat Datang, "+cust.getFirstname()+"<br> queuemu "+CustomerController.urutanQueue()+"</html>";
+        }else{
+            text = "<html>Selamat Datang, "+cust.getFirstname();
         }
         labTitle = new JLabel(text);
         buttonFoodOrder = new JButton("Order Food");

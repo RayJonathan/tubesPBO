@@ -150,7 +150,6 @@ public class CustomerController {
             ResultSet rs = stmt.executeQuery(query);
             boolean exit = false;
             while(rs.next() && !exit){
-                System.out.println("wajib");
                 if(rs.getString("id_cust").equals(sc.getCurrentCustomer().getIdCust())){
                     exit = true;
                     ketemu = true;
@@ -164,10 +163,8 @@ public class CustomerController {
         
         conn.disconnect();
         if(ketemu){
-            System.out.println(countTable);
             return countTable;
         }else{
-            System.out.println("countTable");
             return 0;
         }
     }
