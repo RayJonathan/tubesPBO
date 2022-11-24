@@ -30,8 +30,7 @@ public class ViewTransaction {
         int y = 20;
         for (int i = 0; i < listMakanan.size(); i++) {
             JLabel listPembelian = new JLabel(listMakanan.get(i).getQuantity() + "x "
-                + getNamaMakanan(listMakanan.get(i).getIdMenu()) + 
-                + listMakanan.get(i).getTotal());
+                + getNamaMakanan(listMakanan.get(i).getIdMenu()));
             JLabel listHarga = new JLabel("Rp " + listMakanan.get(i).getTotal());
 
             listPembelian.setBounds(50, y, 150, 25);
@@ -40,11 +39,11 @@ public class ViewTransaction {
             frame.add(listHarga);
             y += 50;
         }
-        JLabel discount = new JLabel("Discount: " + getDiscount(transactions.getIdDiscount()));
+        JLabel discount = new JLabel("Discount: " + getDiscount(transactions.getIdDiscount()) + "%");
         discount.setBounds(50, y, 150, 25);
         frame.add(discount);
         y += 50;
-        JLabel total = new JLabel("Total: " + transactions.getTotal());
+        JLabel total = new JLabel("Total: Rp" + transactions.getTotal());
         total.setBounds(50, y, 150, 25);
         frame.add(total);
         y += 50;
@@ -54,6 +53,7 @@ public class ViewTransaction {
         frame.add(done);
         done.addActionListener((ActionListener) new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                frame.dispose();
                 new ViewMenuCustomer();
             }
         });
@@ -92,14 +92,14 @@ public class ViewTransaction {
         conn.connect();
         try {
             java.sql.Statement stat = conn.con.createStatement();
-            ResultSet rs = stat.executeQuery("SELECT * FROM recieptdetails WHERE id_receipt = '" + idReciept + "'");
+            ResultSet rs = stat.executeQuery("SELECT * FROM receiptdetails WHERE id_receipt = '" + idReciept + "'");
             while (rs.next()) {
                 String idReceiptDetails = rs.getString("id_receiptDetails");
                 String idReceipt = rs.getString("id_receipt");
                 String idMenu = rs.getString("id_menu");
                 int quantity = rs.getInt("quantity");
                 String status = rs.getString("status_food_progress");
-                double total = rs.getDouble("total");
+                double total = rs.getDouble("subtotal");
                 receiptDetails.add(new ReceiptDetails(idReceiptDetails, idReceipt, idMenu, quantity, status, total));
             }
         } catch (SQLException e) {
