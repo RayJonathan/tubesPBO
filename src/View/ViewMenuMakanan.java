@@ -13,9 +13,6 @@ import Models.Menu;
 public class ViewMenuMakanan {
     static ConnectDatabase conn = SingletonDatabase.getConnectObject();
 
-    public static void main(String[] args) {
-        new ViewMenuMakanan();
-    }
 
     public ViewMenuMakanan() {
         JFrame frame = new JFrame("Menu Makanan");
@@ -45,7 +42,7 @@ public class ViewMenuMakanan {
 
                         FoodOrderController.insertDB(showfood.get(i).getIdMenu(), value, showfood.get(i).getPrice(),
                                 "TEMPORARY");
-                        System.out.println(value);
+                        new ViewMenuCustomer();
                     }
                 }
             }

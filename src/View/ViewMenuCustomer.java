@@ -7,7 +7,6 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import Models.EnumStatusUser;
-import Models.QueueTable;
 import Models.Customer;
 
 public class ViewMenuCustomer extends JFrame implements ActionListener {
