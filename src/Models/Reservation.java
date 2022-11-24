@@ -7,3 +7,4 @@ public class Reservation {
     String idTable;
     Date schedule;
 }
+//

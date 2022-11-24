@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import java.sql.Statement;
+import java.util.Date;
 
 import javax.swing.JOptionPane;
 
@@ -43,7 +44,27 @@ public class FoodOrderController {
         return idTerbaru;
     }
 
-    public static void insertDB(String idMenu, int qty, double price, String idReceipt) {
+    public void insertDB() {
+        conn.connect();
+        try {
+            PreparedStatement pstat = conn.con.prepareStatement(
+                    "INSERT INTO receipt(id_receipt, id_reservation, date) VALUES (?,?,?)");
+
+            pstat.setString(1, hitungIdDetail());
+            pstat.setString(2, ReservationController.hitungReservationId());
+            pstat.setDate(3, new Date(System.currentTimeMillis()));
+            pstat.executeUpdate();
+
+            JOptionPane.showMessageDialog(null, "Berhasil memasukkan data ke database");
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error!! Gagal memasukkan data ke database");
+            System.out.println(e);
+        }
+
+        conn.disconnect();
+    }
+
+    public static void insertDB(String idMenu, int qty, double price, Receipt receipt) {
         conn.connect();
         try {
             PreparedStatement pstat = conn.con.prepareStatement(
@@ -68,3 +89,4 @@ public class FoodOrderController {
     }
 
 }
+//
