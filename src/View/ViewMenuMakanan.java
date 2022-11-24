@@ -4,24 +4,33 @@ import java.awt.event.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
+
 import Controller.*;
 import javax.swing.*;
 
-import Controller.*;
 import Models.Menu;
 import Models.Receipt;
-import Models.Reservation;
 
 public class ViewMenuMakanan {
     static ConnectDatabase conn = SingletonDatabase.getConnectObject();
 
     public ViewMenuMakanan() {
-
+        SingletonReservation srv = new SingletonReservation();
         JFrame frame = new JFrame("Menu Makanan");
         ArrayList<Menu> showfood = showFood();
+        String rsvId = SingletonReservation.getInstance().getCurrentResarvation().getIdReservation();
+        String rcptId = FoodOrderController.hitungIdReceipt();
+        String idCust = SingletonReservation.getInstance().getCurrentResarvation().getIdCustomer();
         SingletonReceipt sr = new SingletonReceipt();
-        Receipt receipt = new Receipt();
 
+        java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
+
+        Receipt receipt = new Receipt(rcptId, rsvId, idCust, date);
+        sr.setCurrentReceipt(receipt);
+        FoodOrderController.insertDbReceipt(SingletonReceipt.getInstance().getCurrentReceipt().getIdReceipt(),
+                SingletonReceipt.getInstance().getCurrentReceipt().getidReservation(),
+                SingletonReceipt.getInstance().getCurrentReceipt().getDate());
         ArrayList<JTextField> quantity = new ArrayList<>();
 
         int y = 0;
@@ -45,7 +54,7 @@ public class ViewMenuMakanan {
                     if (value != 0) {
 
                         FoodOrderController.insertDB(showfood.get(i).getIdMenu(), value, showfood.get(i).getPrice(),
-                                "TEMPORARY");
+                                SingletonReceipt.getInstance().getCurrentReceipt().toString());
                         new ViewMenuCustomer();
                     }
                 }

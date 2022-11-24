@@ -1,6 +1,8 @@
 package View;
 
 import Controller.*;
+
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.ResultSet;
@@ -50,10 +52,10 @@ public class ViewMenuUtama extends JFrame implements ActionListener {
         f.add(login);
         f.add(labError);
         labError.setVisible(false);
-        f.setSize(400, 400);
+        f.setSize(400, 200);
         login.addActionListener(this);
         register.addActionListener(this);
-
+        f.getContentPane().setBackground(Color.lightGray);
         f.setLayout(null);
         f.setVisible(true);
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -126,4 +128,4 @@ public class ViewMenuUtama extends JFrame implements ActionListener {
             new ViewRegister();
         }
     }
-}
+}//

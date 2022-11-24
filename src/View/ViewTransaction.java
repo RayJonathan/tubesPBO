@@ -19,20 +19,17 @@ import java.util.ArrayList;
 
 public class ViewTransaction {
     static ConnectDatabase conn = SingletonDatabase.getConnectObject();
-    public static void main(String[] args) {
-        new ViewTransaction();
-    }
 
-    public ViewTransaction(){
+    public ViewTransaction() {
         JFrame frame = new JFrame("Transaksi");
         Transaction transactions = getTransaction("TRA001");
         ArrayList<ReceiptDetails> listMakanan = getRecieptDetail(transactions.getIdReciept());
         ArrayList<Double> totalHargaMakanan = getTotal(transactions.getIdReciept());
-        
+
         int y = 20;
         for (int i = 0; i < listMakanan.size(); i++) {
             JLabel listPembelian = new JLabel(listMakanan.get(i).getQuantity() + "x "
-                + getNamaMakanan(listMakanan.get(i).getIdMenu()));
+                    + getNamaMakanan(listMakanan.get(i).getIdMenu()));
             JLabel listHarga = new JLabel("Rp " + totalHargaMakanan.get(i));
 
             listPembelian.setBounds(50, y, 150, 25);
@@ -63,10 +60,10 @@ public class ViewTransaction {
         frame.setSize(400, 500);
         frame.setLayout(null);
         frame.setVisible(true);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
-    public Transaction getTransaction(String idTrans){
+    public Transaction getTransaction(String idTrans) {
         Transaction transaction = null;
         ConnectDatabase conn = new ConnectDatabase();
         conn.connect();
@@ -88,7 +85,8 @@ public class ViewTransaction {
         conn.disconnect();
         return transaction;
     }
-    public ArrayList<ReceiptDetails> getRecieptDetail(String idReciept){
+
+    public ArrayList<ReceiptDetails> getRecieptDetail(String idReciept) {
         ArrayList<ReceiptDetails> receiptDetails = new ArrayList<>();
         ConnectDatabase conn = new ConnectDatabase();
         conn.connect();
@@ -100,7 +98,8 @@ public class ViewTransaction {
                 String idReceipt = rs.getString("id_receipt");
                 String idMenu = rs.getString("id_menu");
                 int quantity = rs.getInt("quantity");
-                receiptDetails.add(new ReceiptDetails(idReceiptDetails, idReceipt, idMenu, quantity, EnumStatusFood.DELIVERED));
+                receiptDetails.add(
+                        new ReceiptDetails(idReceiptDetails, idReceipt, idMenu, quantity, EnumStatusFood.DELIVERED));
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error!! Gagal memasukkan data ke database");
@@ -109,7 +108,8 @@ public class ViewTransaction {
         conn.disconnect();
         return receiptDetails;
     }
-    public ArrayList<Double> getTotal(String idReciept){
+
+    public ArrayList<Double> getTotal(String idReciept) {
         ArrayList<Double> totalReciept = new ArrayList<>();
         ConnectDatabase conn = new ConnectDatabase();
         conn.connect();
@@ -126,7 +126,8 @@ public class ViewTransaction {
         conn.disconnect();
         return totalReciept;
     }
-    public String getNamaMakanan(String idMenu){
+
+    public String getNamaMakanan(String idMenu) {
         String nama = "";
         ConnectDatabase conn = new ConnectDatabase();
         conn.connect();
@@ -143,7 +144,8 @@ public class ViewTransaction {
         conn.disconnect();
         return nama;
     }
-    public int getDiscount(String idDiscount){
+
+    public int getDiscount(String idDiscount) {
         int ammount = 0;
         ConnectDatabase conn = new ConnectDatabase();
         conn.connect();
@@ -160,6 +162,7 @@ public class ViewTransaction {
         conn.disconnect();
         return ammount;
     }
+
     public static void main(String[] args) {
         new ViewTransaction();
     }
