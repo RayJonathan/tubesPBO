@@ -8,6 +8,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import java.awt.Color;
 import java.awt.event.*;
 
 import Models.Customer;
@@ -25,12 +26,12 @@ public class ViewRegister {
         // JFrame
         JFrame jf = new JFrame("Input Data");
         jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        jf.setSize(500, 800);
+        jf.setSize(500, 300);
 
         JLabel jlNama = new JLabel("Username");
         jlNama.setBounds(50, 60, 150, 30);
 
-        JLabel jlEmail = new JLabel("Enail");
+        JLabel jlEmail = new JLabel("Email");
         jlEmail.setBounds(50, 90, 150, 30);
 
         JLabel jlPassword = new JLabel("Password");
@@ -46,9 +47,9 @@ public class ViewRegister {
         password = new JPasswordField();
         password.setBounds(180, 125, 240, 20);
 
-        JButton submit = new JButton("Registrasi");
-        submit.setBounds(100, 700, 90, 30);
-        submit.addActionListener(new ActionListener() {
+        JButton registrasi = new JButton("Register");
+        registrasi.setBounds(100, 200, 90, 30);
+        registrasi.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 boolean check = rc.searchUser();
@@ -62,8 +63,8 @@ public class ViewRegister {
             }
         });
 
-        JButton back = new JButton("Logout");
-        back.setBounds(400, 700, 70, 50);
+        JButton back = new JButton("Login");
+        back.setBounds(400, 200, 70, 50);
         back.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -71,16 +72,16 @@ public class ViewRegister {
                 new ViewMenuUtama();
             }
         });
-
+        //
         jf.add(jlNama);
         jf.add(username);
         jf.add(jlEmail);
         jf.add(email);
         jf.add(jlPassword);
         jf.add(password);
-        jf.add(submit);
+        jf.add(registrasi);
         jf.add(back);
-
+        jf.getContentPane().setBackground(Color.lightGray);
         jf.setLayout(null);
         jf.setVisible(true);
     }

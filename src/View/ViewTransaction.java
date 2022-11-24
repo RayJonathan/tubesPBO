@@ -86,7 +86,7 @@ public class ViewTransaction {
         frame.setSize(400, 500);
         frame.setLayout(null);
         frame.setVisible(true);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
     public ArrayList<ReceiptDetails> getRecieptDetail(String idReciept){
         ArrayList<ReceiptDetails> receiptDetails = new ArrayList<>();
@@ -100,7 +100,8 @@ public class ViewTransaction {
                 String idReceipt = rs.getString("id_receipt");
                 String idMenu = rs.getString("id_menu");
                 int quantity = rs.getInt("quantity");
-                receiptDetails.add(new ReceiptDetails(idReceiptDetails, idReceipt, idMenu, quantity, EnumStatusFood.DELIVERED));
+                receiptDetails.add(
+                        new ReceiptDetails(idReceiptDetails, idReceipt, idMenu, quantity, EnumStatusFood.DELIVERED));
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error!! Gagal memasukkan data ke database");
@@ -126,7 +127,8 @@ public class ViewTransaction {
         conn.disconnect();
         return totalReciept;
     }
-    public String getNamaMakanan(String idMenu){
+
+    public String getNamaMakanan(String idMenu) {
         String nama = "";
         ConnectDatabase conn = new ConnectDatabase();
         conn.connect();

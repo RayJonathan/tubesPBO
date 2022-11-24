@@ -30,33 +30,6 @@ public class ReservationController {
         return "";
     }
 
-    public static String hitungIdReservation() {
-        String idTerbaru = "";
-        String query = "SELECT COUNT(id_receiptDetails) as 'Count' FROM receiptdetails";
-        conn.connect();
-        try {
-            Statement stmt = conn.con.createStatement();
-            ResultSet rs = stmt.executeQuery(query);
-
-            int idTerbesar = 0;
-            if (rs.next()) {
-                idTerbesar = rs.getInt("Count");
-            }
-            int angkaTerbaru = idTerbesar + 1;
-            String angkaStrTerbaru = Integer.toString(angkaTerbaru);
-            if (angkaTerbaru < 10) {
-                idTerbaru = "RD00" + angkaStrTerbaru;
-            } else if (angkaTerbaru < 100) {
-                idTerbaru = "RD0" + angkaStrTerbaru;
-            } else {
-                idTerbaru = "RD" + angkaStrTerbaru;
-            }
-        } catch (SQLException except) {
-            except.printStackTrace();
-        }
-        return idTerbaru;
-    }
-
     public static String hitungId() {
         String idTerbaru = "";
         String query = "SELECT MAX(id_reservation) FROM reservation";
@@ -85,6 +58,7 @@ public class ReservationController {
         conn.disconnect();
         return idTerbaru;
     }
+
     public static void insertDB(String idReservation, String idTable, String idCust) {
         conn.connect();
         try {

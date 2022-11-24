@@ -19,6 +19,33 @@ public class FoodOrderController {
     static ConnectDatabase conn = SingletonDatabase.getConnectObject();
     SingletonReservation srv = new SingletonReservation();
 
+    public static String hitungIdReceipt() {
+        String idTerbaru = "";
+        String query = "SELECT COUNT(id_receipt) as 'Count' FROM receipt";
+        conn.connect();
+        try {
+            Statement stmt = conn.con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+
+            int idTerbesar = 0;
+            if (rs.next()) {
+                idTerbesar = rs.getInt("Count");
+            }
+            int angkaTerbaru = idTerbesar + 1;
+            String angkaStrTerbaru = Integer.toString(angkaTerbaru);
+            if (angkaTerbaru < 10) {
+                idTerbaru = "RE00" + angkaStrTerbaru;
+            } else if (angkaTerbaru < 100) {
+                idTerbaru = "RE0" + angkaStrTerbaru;
+            } else {
+                idTerbaru = "RE" + angkaStrTerbaru;
+            }
+        } catch (SQLException except) {
+            except.printStackTrace();
+        }
+        return idTerbaru;
+    }
+
     public static String hitungIdDetail() {
         String idTerbaru = "";
         String query = "SELECT COUNT(id_receiptDetails) as 'Count' FROM receiptdetails";
@@ -46,16 +73,14 @@ public class FoodOrderController {
         return idTerbaru;
     }
 
-    public void insertDB() {
-
+    public static void insertDbReceipt(String idReceipt, String idReservation, Date date) {
         conn.connect();
         try {
             PreparedStatement pstat = conn.con.prepareStatement(
                     "INSERT INTO receipt(id_receipt, id_reservation, date) VALUES (?,?,?)");
 
-            pstat.setString(1, hitungIdDetail());
-            pstat.setString(2, srv.getInstance().getCurrentResarvation().toString());
-            java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
+            pstat.setString(1, idReceipt);
+            pstat.setString(2, idReservation);
             pstat.setDate(3, date);
             pstat.executeUpdate();
 
