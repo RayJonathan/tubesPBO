@@ -2,19 +2,14 @@ package Controller;
 
 import java.sql.ResultSet;
 
-import com.mysql.cj.xdevapi.*;
-
 import Models.*;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import java.sql.Statement;
-import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
-
-import Models.*;
 
 public class FoodOrderController {
 
@@ -23,18 +18,17 @@ public class FoodOrderController {
 
     public static String hitungId() {
         String idTerbaru = "";
-        String query = "SELECT MAX(id_receipt) FROM receiptdetails";
+        String query = "SELECT COUNT(id_receipt) as 'Count' FROM receipt";
         conn.connect();
         try {
             Statement stmt = conn.con.createStatement();
             ResultSet rs = stmt.executeQuery(query);
-            String idTerbesar = "";
+
+            int idTerbesar = 0;
             if (rs.next()) {
-                idTerbesar = rs.getString("MAX(id_receipt)");
+                idTerbesar = rs.getInt("Count");
             }
-            String angkaStrTerbesar = idTerbesar.substring(1);
-            int angkaTerbesar = Integer.parseInt(angkaStrTerbesar);
-            int angkaTerbaru = angkaTerbesar + 1;
+            int angkaTerbaru = idTerbesar + 1;
             String angkaStrTerbaru = Integer.toString(angkaTerbaru);
             if (angkaTerbaru < 10) {
                 idTerbaru = "R00" + angkaStrTerbaru;
@@ -46,24 +40,22 @@ public class FoodOrderController {
         } catch (SQLException except) {
             except.printStackTrace();
         }
-        conn.disconnect();
         return idTerbaru;
     }
 
     public static String hitungIdDetail() {
         String idTerbaru = "";
-        String query = "SELECT MAX(id_receiptDetails) FROM receiptdetails";
+        String query = "SELECT COUNT(id_receiptDetails) as 'Count' FROM receiptdetails";
         conn.connect();
         try {
             Statement stmt = conn.con.createStatement();
             ResultSet rs = stmt.executeQuery(query);
-            String idTerbesar = "";
+
+            int idTerbesar = 0;
             if (rs.next()) {
-                idTerbesar = rs.getString("MAX(id_receiptDetails)");
+                idTerbesar = rs.getInt("Count");
             }
-            String angkaStrTerbesar = idTerbesar.substring(1);
-            int angkaTerbesar = Integer.parseInt(angkaStrTerbesar);
-            int angkaTerbaru = angkaTerbesar + 1;
+            int angkaTerbaru = idTerbesar + 1;
             String angkaStrTerbaru = Integer.toString(angkaTerbaru);
             if (angkaTerbaru < 10) {
                 idTerbaru = "RD00" + angkaStrTerbaru;
@@ -75,28 +67,23 @@ public class FoodOrderController {
         } catch (SQLException except) {
             except.printStackTrace();
         }
-        conn.disconnect();
         return idTerbaru;
     }
 
-    public static void insertDB(String pesanan, Double double1) {
+    public static void insertDB(String idMenu, int qty, double price) {
         conn.connect();
-        String idPesananString = hitungId();
         try {
             PreparedStatement pstat = conn.con.prepareStatement(
-                    "INSERT INTO `receiptdetails`(`id_receiptDetails`, `id_receipt`, `id_menu`, `quantity`, `status_food_progress`, `subtotal`) VALUES (?,?,?,?,?,?)");
-            java.sql.Statement stat = conn.con.createStatement();
-            ResultSet result = stat.executeQuery("SELECT * FROM menu WHERE name_menu='" + pesanan + "'");
-            if (result.next()) {
-                pstat.setString(1, "101");
-                pstat.setString(2, idPesananString);
-                pstat.setString(3, "201");
-                pstat.setDouble(4, double1);
-                pstat.setString(5, "Pending");
-                double subtotal = result.getDouble("price") * double1;
-                pstat.setDouble(6, subtotal);
-                pstat.executeUpdate();
-            }
+                    "INSERT INTO receiptdetails(id_receiptDetails, id_receipt, id_menu, quantity, status_food_progress, subtotal) VALUES (?,?,?,?,?,?)");
+
+            pstat.setString(1, hitungIdDetail());
+            pstat.setString(2, hitungId());
+            pstat.setString(3, idMenu);
+            pstat.setInt(4, qty);
+            pstat.setString(5, "Pending");
+            double subtotal = price * qty;
+            pstat.setDouble(6, subtotal);
+            pstat.executeUpdate();
 
             JOptionPane.showMessageDialog(null, "Berhasil memasukkan data ke database");
         } catch (SQLException e) {
