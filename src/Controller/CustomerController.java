@@ -126,7 +126,11 @@ public class CustomerController {
             Statement stmt = conn.con.createStatement();
             ResultSet rs = stmt.executeQuery(query);
             while (rs.next()) {
-                transaksi.add(new Transaction(rs.getString("id_transaction"), rs.getInt("total")));
+                transaksi.add(new Transaction(
+                rs.getString("id_transaction"), 
+                rs.getString("id_receipt"),
+                rs.getString("id_discount"),
+                rs.getDouble("total")));
             }
         } catch (SQLException e) {
             e.printStackTrace();
