@@ -9,17 +9,18 @@ import javax.swing.*;
 
 import Controller.*;
 import Models.Menu;
+import Models.Receipt;
 import Models.Reservation;
 
 public class ViewMenuMakanan {
     static ConnectDatabase conn = SingletonDatabase.getConnectObject();
 
     public ViewMenuMakanan() {
+
         JFrame frame = new JFrame("Menu Makanan");
         ArrayList<Menu> showfood = showFood();
-        SingletonReservation srv = new SingletonReservation();
-        Reservation reservation = new Reservation();
-        String idRsv = ReservationController.hitungId();
+        SingletonReceipt sr = new SingletonReceipt();
+        Receipt receipt = new Receipt();
 
         ArrayList<JTextField> quantity = new ArrayList<>();
 
@@ -45,7 +46,6 @@ public class ViewMenuMakanan {
 
                         FoodOrderController.insertDB(showfood.get(i).getIdMenu(), value, showfood.get(i).getPrice(),
                                 "TEMPORARY");
-                        frame.dispose();
                         new ViewMenuCustomer();
                     }
                 }

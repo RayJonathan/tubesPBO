@@ -8,7 +8,8 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import java.sql.Statement;
-import java.util.Date;
+import java.util.Calendar;
+import java.sql.Date;
 
 import javax.swing.JOptionPane;
 
@@ -16,6 +17,7 @@ public class FoodOrderController {
 
     Customer cust;
     static ConnectDatabase conn = SingletonDatabase.getConnectObject();
+    SingletonReservation srv = new SingletonReservation();
 
     public static String hitungIdDetail() {
         String idTerbaru = "";
@@ -45,14 +47,16 @@ public class FoodOrderController {
     }
 
     public void insertDB() {
+
         conn.connect();
         try {
             PreparedStatement pstat = conn.con.prepareStatement(
                     "INSERT INTO receipt(id_receipt, id_reservation, date) VALUES (?,?,?)");
-            SingletonReservation srv = new SingletonReservation();
+
             pstat.setString(1, hitungIdDetail());
-            pstat.setString(2, srv.getInstance().getCurrentResarvation());
-            pstat.setDate(3, new Date(System.currentTimeMillis()));
+            pstat.setString(2, srv.getInstance().getCurrentResarvation().toString());
+            java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
+            pstat.setDate(3, date);
             pstat.executeUpdate();
 
             JOptionPane.showMessageDialog(null, "Berhasil memasukkan data ke database");
