@@ -1,34 +1,39 @@
 package Controller;
 
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import Models.*;
-import View.ViewMenuCustomer;
 
 import javax.swing.JOptionPane;
 
 public class UserController {
-    Customer cust;
     static ConnectDatabase conn = SingletonDatabase.getConnectObject();
+    SingletonAdmin sa = SingletonAdmin.getInstance();
+    SingletonCustomer sc = SingletonCustomer.getInstance();
 
-    public UserController() {
-        updateDB();
-        new ViewMenuCustomer();
-    }
-
-    public void updateDB() {
+    public void updateDB(EnumStatusUser status) {
+        //update yg di sql skrng
         conn.connect();
         String path1 = "UPDATE customer";
         String path2 = "UPDATE admin";
-        String query = " SET firstname = ?, lastname = ?, password = ? WHERE username = ?";
-        System.out.println(cust.getStatus());
-        if (cust.getStatus() == EnumStatusUser.CUSTOMER) {
-            path1 += query;
-            query = path1;
+        String firstname ="",lastname="", password = "", username = "";
+        String query = " SET firstname = "+firstname+", lastname = "+lastname+", password = "+password+" WHERE username = "+username;
+        if (status == EnumStatusUser.CUSTOMER) {
+            Customer cust = sc.getCurrentCustomer();
+            firstname = cust.getFirstname();
+            lastname = cust.getLastname();
+            password = cust.getPassword();
+            username = cust.getUsername();
+
+            query = path1 + query;
         } else {
-            path2 += query;
-            query = path2;
+            Admin admin = sa.getCurrentAdmin();
+            firstname = admin.getFirstname();
+            lastname = admin.getLastname();
+            password = admin.getPassword();
+            username = admin.getUsername();
+
+            query = path2 + query;
         }
         conn.disconnect();
 
