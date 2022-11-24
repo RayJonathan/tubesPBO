@@ -56,3 +56,4 @@ public class ReceiptDetails {
         this.statusFoodProgress = statusFoodProgress;
     }
 }
+//
