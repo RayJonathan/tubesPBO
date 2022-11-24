@@ -13,11 +13,10 @@ import Models.Menu;
 public class ViewMenuMakanan {
     static ConnectDatabase conn = SingletonDatabase.getConnectObject();
 
-
     public ViewMenuMakanan() {
         JFrame frame = new JFrame("Menu Makanan");
         ArrayList<Menu> showfood = showFood();
-
+        SingletonReservation 
         ArrayList<JTextField> quantity = new ArrayList<>();
 
         int y = 0;

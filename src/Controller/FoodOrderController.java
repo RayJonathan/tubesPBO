@@ -49,9 +49,9 @@ public class FoodOrderController {
         try {
             PreparedStatement pstat = conn.con.prepareStatement(
                     "INSERT INTO receipt(id_receipt, id_reservation, date) VALUES (?,?,?)");
-
+            SingletonReservation srv = new SingletonReservation();
             pstat.setString(1, hitungIdDetail());
-            pstat.setString(2, ReservationController.hitungReservationId());
+            pstat.setString(2, srv.getInstance().getCurrentResarvation());
             pstat.setDate(3, new Date(System.currentTimeMillis()));
             pstat.executeUpdate();
 
