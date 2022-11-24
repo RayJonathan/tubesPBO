@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import Controller.*;
+import Models.*;
 
 public class ViewUpdateProfile extends JFrame implements ActionListener {
     JFrame f = new JFrame("Menu Update Profile");
@@ -16,14 +17,30 @@ public class ViewUpdateProfile extends JFrame implements ActionListener {
     JTextField firstname, lastname;
     JPasswordField password;
     JLabel labFName, labLName, labPass;
+    EnumStatusUser esu = EnumStatusUser.ADMIN;
+    SingletonCustomer sc = SingletonCustomer.getInstance();
+    SingletonAdmin sa = SingletonAdmin.getInstance();
+    Customer cust = sc.getCurrentCustomer();
+    Admin admin = sa.getCurrentAdmin();
 
-    public ViewUpdateProfile() {
+    public ViewUpdateProfile(EnumStatusUser status) {
         labFName = new JLabel("First Name");
         labLName = new JLabel("Last Name");
         labPass = new JLabel("Password");
-        firstname = new JTextField();
-        lastname = new JTextField();
-        password = new JPasswordField();
+        String isiFirstname = "", isiLastname = "" , isiPassword = "";
+        if (status == EnumStatusUser.CUSTOMER) {
+            isiFirstname = cust.getFirstname();
+            isiLastname = cust.getLastname();
+            isiPassword = cust.getPassword();
+            esu = EnumStatusUser.CUSTOMER;
+        } else {
+            isiFirstname = admin.getFirstname();
+            isiLastname = admin.getLastname();
+            isiPassword = admin.getPassword();
+        }
+        firstname = new JTextField(isiFirstname);
+        lastname = new JTextField(isiLastname);
+        password = new JPasswordField(isiPassword);
         buttonUpdateProfile = new JButton("Update Profile");
         buttonBack = new JButton("Back");
 
@@ -61,11 +78,33 @@ public class ViewUpdateProfile extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == buttonUpdateProfile) {
-            System.out.println("haa");
+            if(esu == EnumStatusUser.CUSTOMER){
+                cust.setFirstname(firstname.getText());
+                cust.setLastname(lastname.getText());
+                char[] passChar = password.getPassword();
+                String inputPassword = new String(passChar);
+                cust.setPassword(inputPassword);
+            }else{
+                admin.setFirstname(firstname.getText());
+                admin.setLastname(lastname.getText());
+                char[] passChar = password.getPassword();
+                String inputPassword = new String(passChar);
+                admin.setPassword(inputPassword);
+            }
             f.dispose();
-            new UserController();
+            UserController.updateDB(esu);
+            if(esu==EnumStatusUser.CUSTOMER){
+                new ViewMenuCustomer();
+            }else{
+                new ViewMenuAdmin();
+            }
         } else if (e.getSource() == buttonBack) {
-            new ViewMenuCustomer();
+            if(esu==EnumStatusUser.CUSTOMER){
+                new ViewMenuCustomer();
+            }else{
+                new ViewMenuAdmin();
+            }
+            f.dispose();
         }
     }
 }

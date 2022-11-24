@@ -6,16 +6,19 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import Models.EnumStatusUser;
 import Models.Customer;
 
 public class ViewMenuCustomer extends JFrame implements ActionListener {
     ConnectDatabase conn = SingletonDatabase.getConnectObject();
+    SingletonCustomer sc = SingletonCustomer.getInstance();
+    Customer cust = sc.getCurrentCustomer();
     JFrame f = new JFrame("");
     JLabel labTitle;
     JButton buttonReservation, buttonJoinMember, buttonATM, buttonUpdateProfile, buttonLogout, buttonFoodOrder;
 
     public ViewMenuCustomer() {
-        labTitle = new JLabel("Hey");
+        labTitle = new JLabel("Selamat Datang, "+cust.getFirstname());
         buttonFoodOrder = new JButton("Reserve Button");
         buttonReservation = new JButton("Reserve Table");
         buttonJoinMember = new JButton("Join Membership");
@@ -23,7 +26,7 @@ public class ViewMenuCustomer extends JFrame implements ActionListener {
         buttonUpdateProfile = new JButton("Update Profile");
         buttonLogout = new JButton("LogOut");
 
-        labTitle.setBounds(20, 20, 100, 70);
+        labTitle.setBounds(20, 20, 200, 70);
         buttonReservation.setBounds(30, 90, 150, 70);
         buttonJoinMember.setBounds(190, 90, 150, 70);
         buttonATM.setBounds(30, 170, 150, 70);
@@ -60,7 +63,7 @@ public class ViewMenuCustomer extends JFrame implements ActionListener {
         } else if (e.getSource() == buttonATM) {
             new MainATM();
         } else if (e.getSource() == buttonUpdateProfile) {
-            new ViewUpdateProfile();
+            new ViewUpdateProfile(EnumStatusUser.CUSTOMER);
         } else if (e.getSource() == buttonLogout) {
             new ViewMenuUtama();
         }
