@@ -160,4 +160,7 @@ public class ViewTransaction {
         conn.disconnect();
         return ammount;
     }
+    public static void main(String[] args) {
+        new ViewTransaction();
+    }
 }
