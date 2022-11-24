@@ -45,6 +45,7 @@ public class ViewMenuMakanan {
 
                         FoodOrderController.insertDB(showfood.get(i).getIdMenu(), value, showfood.get(i).getPrice(),
                                 "TEMPORARY");
+                        frame.dispose();
                         new ViewMenuCustomer();
                     }
                 }
