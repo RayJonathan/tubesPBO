@@ -3,6 +3,7 @@ package Controller;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import javax.swing.JOptionPane;
+
 /**
  *
  * @author calvi
@@ -13,7 +14,7 @@ public class ConnectDatabase {
     private String url = "jdbc:mysql://localhost/db_tubespbo";
     private String username = "root";
     private String password = "";
-    
+
     private Connection logOn() {
         try {
             Class.forName(driver).newInstance();

@@ -11,10 +11,11 @@ public class ViewMenuCustomer extends JFrame implements ActionListener {
     ConnectDatabase conn = SingletonDatabase.getConnectObject();
     JFrame f = new JFrame("");
     JLabel labTitle;
-    JButton buttonReservation, buttonJoinMember, buttonATM, buttonUpdateProfile, buttonLogout;
+    JButton buttonReservation, buttonJoinMember, buttonATM, buttonUpdateProfile, buttonLogout, buttonFoodOrder;
 
     public ViewMenuCustomer() {
         labTitle = new JLabel("Hey");
+        buttonFoodOrder = new JButton("Reserve Button");
         buttonReservation = new JButton("Reserve Table");
         buttonJoinMember = new JButton("Join Membership");
         buttonATM = new JButton("Balance");
@@ -27,6 +28,7 @@ public class ViewMenuCustomer extends JFrame implements ActionListener {
         buttonATM.setBounds(30, 170, 150, 70);
         buttonUpdateProfile.setBounds(190, 170, 150, 70);
         buttonLogout.setBounds(240, 250, 100, 30);
+        buttonFoodOrder.setBounds(30, 90, 150, 70);
 
         f.add(labTitle);
         f.add(buttonReservation);
@@ -50,15 +52,15 @@ public class ViewMenuCustomer extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         f.dispose();
-        if(e.getSource() == buttonReservation){
+        if (e.getSource() == buttonReservation) {
             new ViewMenuReservation();
-        }else if(e.getSource() == buttonJoinMember){
+        } else if (e.getSource() == buttonJoinMember) {
             new ViewMember();
-        }else if(e.getSource() == buttonATM){
+        } else if (e.getSource() == buttonATM) {
             new MainATM();
-        }else if(e.getSource() == buttonUpdateProfile){
+        } else if (e.getSource() == buttonUpdateProfile) {
             // new ViewUpdateProfile();
-        }else if(e.getSource() == buttonLogout){
+        } else if (e.getSource() == buttonLogout) {
             new ViewMenuUtama();
         }
     }

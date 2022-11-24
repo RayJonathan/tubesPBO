@@ -66,8 +66,10 @@ public class ViewMenuUtama extends JFrame implements ActionListener {
             String searchPass = new String(arrPass);
             String id = "";
             String status = "";
-            String query = "SELECT * FROM customer WHERE username='" + searchUsername + "' AND password='" + searchPass + "'";
-            String query2 = "SELECT * FROM admin WHERE username='" + searchUsername + "' AND password='" + searchPass + "'";
+            String query = "SELECT * FROM customer WHERE username='" + searchUsername + "' AND password='" + searchPass
+                    + "'";
+            String query2 = "SELECT * FROM admin WHERE username='" + searchUsername + "' AND password='" + searchPass
+                    + "'";
             conn.connect();
             try {
                 Statement stmt = conn.con.createStatement();
@@ -85,9 +87,9 @@ public class ViewMenuUtama extends JFrame implements ActionListener {
                 }
 
                 if (!id.equals("")) {
-                    if(status.equals("cust")){
+                    if (status.equals("cust")) {
                         new ViewMenuCustomer();
-                    }else{
+                    } else {
                         new ViewMenuAdmin();
                     }
                     f.dispose();

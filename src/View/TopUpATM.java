@@ -8,7 +8,8 @@ import Controller.ATMController;
 
 public class TopUpATM {
     public TopUpATM(String username) {
-        //rememebr last opened menu, and make it as dirrection for actionlistener topup/back
+        // rememebr last opened menu, and make it as dirrection for actionlistener
+        // topup/back
         JFrame f = new JFrame("TOP UP");
         JLabel tag1 = new JLabel("TOP UP BALANCE");
         JLabel tag2 = new JLabel("Insert Balance");
@@ -28,6 +29,9 @@ public class TopUpATM {
         f.setSize(400, 400);
         f.setLayout(null);
         f.setVisible(true);
+
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
         topUp.addActionListener((ActionListener) new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 int topupValue = Integer.parseInt(value.getText());
@@ -36,6 +40,7 @@ public class TopUpATM {
 
             }
         });
+
         back.addActionListener((ActionListener) new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 f.dispose();
@@ -43,5 +48,7 @@ public class TopUpATM {
 
             }
         });
+
     }
+
 }

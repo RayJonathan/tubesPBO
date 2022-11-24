@@ -18,7 +18,7 @@ public class ATMController {
             if (result.next()) {
                 balance = result.getDouble("balance");
             }
-            JOptionPane.showMessageDialog(null, "Balance anda : "+balance);
+            JOptionPane.showMessageDialog(null, "Balance anda : " + balance);
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error!! Gagal memasukkan data ke database");
             System.out.println(e);
@@ -37,10 +37,10 @@ public class ATMController {
             stat.setDouble(1, value);
             stat.setString(2, username);
             stat.executeUpdate();
-            JOptionPane.showMessageDialog(null, "Berhasil memasukkan data ke database");
+            JOptionPane.showMessageDialog(null, "TOPUP SUCCESS", username, 0);
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error!! Gagal memasukkan data ke database");
-            System.out.println(e);
+
         }
         conn.disconnect();
     }
