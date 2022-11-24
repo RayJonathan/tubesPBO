@@ -45,7 +45,7 @@ public class AdminController {
         conn.disconnect();
         return totalSale;
     }
-    public static String deleteUser(String idQueue) {
+    public static String deleteUser(int idQueue) {
         conn.connect();
         String output = "";
         String query = "DELETE FROM queue WHERE id_queue ='" + idQueue + "'";
