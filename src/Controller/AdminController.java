@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import Models.EnumStatusFood;
 import Models.Menu;
 
 public class AdminController {
@@ -77,19 +78,18 @@ public class AdminController {
         conn.disconnect();
         return output;
     }
-    public static String updateStatusFood(String status, String idRecieptDetails) {
+    public static void updateStatusFood(EnumStatusFood status, String idRecieptDetails) {
         conn.connect();
-        String output = "";
-        String query = "UPDATE recieptDetails SET status_food_progress ='" + status + "'"
-        + "WHERE id_receiptDetails ='" + idRecieptDetails + "'";
+        System.out.println(status);
+        String query = "UPDATE receiptdetails SET status_food_progress ='" + status + "'"
+        + " WHERE id_receiptDetails ='" + idRecieptDetails + "'";
+        System.out.println(query);
         try {
             Statement stmt = conn.con.createStatement();
             stmt.executeUpdate(query);
-            output = "Berhasil memasukan data";
         } catch (SQLException e) {
-            output = "Gagal memasukan data";
+            e.printStackTrace();
         }
         conn.disconnect();
-        return output;
     }
 }

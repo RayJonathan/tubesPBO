@@ -1,5 +1,6 @@
 package View;
 
+import java.awt.event.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -9,12 +10,15 @@ import javax.swing.*;
 
 import Controller.AdminController;
 import Controller.ConnectDatabase;
+import Controller.SingletonAdmin;
 import Controller.SingletonDatabase;
+import Models.EnumStatusFood;
 import Models.Menu;
 import Models.QueueTable;
 
 public class ViewMenuAdmin {
     static ConnectDatabase conn = SingletonDatabase.getConnectObject();
+    SingletonAdmin sa = SingletonAdmin.getInstance();
     JButton buttonTotalIncome, buttonTotalSale, buttonManageQueue, buttonAddMenu, buttonUpdateStatusFood;
 
     public ViewMenuAdmin() {
@@ -56,7 +60,8 @@ public class ViewMenuAdmin {
         });
 
         buttonManageQueue.addActionListener(e -> {
-
+            f.dispose();
+            ManageQueue();
         });
 
         buttonAddMenu.addActionListener(e -> {
@@ -65,6 +70,8 @@ public class ViewMenuAdmin {
         });
 
         buttonUpdateStatusFood.addActionListener(e -> {
+            f.dispose();
+            updateStatusFood();
         });
 
         buttonLogout.addActionListener(e -> {
@@ -222,5 +229,91 @@ public class ViewMenuAdmin {
         f.setVisible(true);
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+    }
+
+    public void updateStatusFood() {
+        conn.connect();
+        ArrayList<String> listReceipt = new ArrayList<>();
+        JComboBox box;
+        String query = "SELECT id_receiptDetails FROM receiptdetails WHERE status_food_progress <> 'DELIVERED'";
+        try {
+            Statement stmt = conn.con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                listReceipt.add(rs.getString("id_receiptDetails"));
+                listReceipt.get(0);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        conn.disconnect();
+
+        JFrame f = new JFrame("Update Status Food");
+        f.setSize(400, 500);
+
+        JLabel labTitle = new JLabel("Update Status");
+        labTitle.setBounds(160, 20, 100, 40);
+        JLabel labIdReceipt = new JLabel("Id Receipt :");
+        labIdReceipt.setBounds(50, 70, 100, 40);
+
+        String[] receiptStr = new String[listReceipt.size()];
+        for (int i = 0; i < receiptStr.length; i++) {
+            receiptStr[i] = listReceipt.get(i);
+            System.out.println(receiptStr[i]);
+        }
+        box = new JComboBox(receiptStr);
+        box.setBounds(180, 70, 100, 40);
+
+        JRadioButton progress, delivered;
+        progress = new JRadioButton("In Progress", true);
+        progress.setBounds(50, 130, 120, 20);
+        delivered = new JRadioButton("DELIVERED");
+        delivered.setBounds(170, 130, 120, 20);
+        ButtonGroup grupStatFood = new ButtonGroup();
+        grupStatFood.add(progress);
+        grupStatFood.add(delivered);
+
+        delivered.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                if (delivered.isSelected()) {
+                    progress.setSelected(false);
+                } else {
+                    progress.setEnabled(true);
+                    progress.setSelected(true);
+                    delivered.setEnabled(true);
+                }
+            }
+        });
+
+        JButton buttonUpdate = new JButton("Update");
+        buttonUpdate.setBounds(90, 270, 75, 50);
+        JButton buttonCancel = new JButton("Cancel");
+        buttonCancel.setBounds(210, 270, 75, 50);
+
+        f.add(progress);
+        f.add(delivered);
+        f.add(labTitle);
+        f.add(labIdReceipt);
+        f.add(box);
+        f.add(buttonUpdate);
+        f.add(buttonCancel);
+
+        buttonUpdate.addActionListener(e -> {
+            if (delivered.isSelected()) {
+                AdminController.updateStatusFood(EnumStatusFood.DELIVERED, (String) box.getSelectedItem());
+            }
+            f.dispose();
+            new ViewMenuAdmin();
+        });
+
+        buttonCancel.addActionListener(e -> {
+            f.dispose();
+            new ViewMenuAdmin();
+        });
+
+        f.setLayout(null);
+        f.setVisible(true);
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 }

@@ -4,6 +4,5 @@ public class ReceiptDetails {
     String idReceipt;
     String idMenu;
     int quantity;
-    String statusFoodProgress;
-
+    EnumStatusFood statusFoodProgress;
 }
