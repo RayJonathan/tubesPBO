@@ -98,11 +98,11 @@ public class ViewMenuUtama extends JFrame implements ActionListener {
                     Admin admin = new Admin();
                     id = rs2.getString("id_admin");
                     admin.setIdAdmin(id);
-                    admin.setUsername(rs.getString("username"));
-                    admin.setPassword(rs.getString("password"));
-                    admin.setFirstname(rs.getString("firstname"));
-                    admin.setLastname(rs.getString("lastname"));
-                    admin.setEmail(rs.getString("email"));
+                    admin.setUsername(rs2.getString("username"));
+                    admin.setPassword(rs2.getString("password"));
+                    admin.setFirstname(rs2.getString("firstname"));
+                    admin.setLastname(rs2.getString("lastname"));
+                    admin.setEmail(rs2.getString("email"));
                     status = "admin";
                     sa.setCurrentAdmin(admin);
                 }

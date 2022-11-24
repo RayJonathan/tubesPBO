@@ -1,6 +1,9 @@
 package View;
 
 import Controller.*;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
@@ -12,8 +15,24 @@ public class ViewQueueTable extends JFrame implements ActionListener {
     JFrame f = new JFrame("");
     JLabel labTitle;
     JButton buttonContinue, buttonBack;
+    String table ="";
+    int countTable = 0;
+
     public ViewQueueTable(int capacity){
-        labTitle = new JLabel("Queuemu adalah");
+        String query = "SELECT * FROM `table` WHERE isOccupied = 0 AND capacity="+capacity;
+        try{
+            Statement stmt = conn.con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            if(rs.next()){
+                table = rs.getString("id_table");
+            }else{
+                table = "kosong";
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        labTitle = new JLabel("Queuemu adalah "+countTable);
         buttonContinue = new JButton("Continue");
         buttonBack = new JButton("Return");
 
@@ -38,6 +57,8 @@ public class ViewQueueTable extends JFrame implements ActionListener {
         f.dispose();
         if (e.getSource() == buttonContinue) {
             new MenuMakanan();
+            
+            new MenuCustomer();
         } else if (e.getSource() == buttonBack) {
             new ViewMenuCustomer();
         }
