@@ -4,7 +4,7 @@ import java.sql.Date;
 
 public class Receipt {
     String idReceipt;
-    String idTable;
+    String idReservation;
     String idCust;
     Date date;
 
@@ -12,9 +12,9 @@ public class Receipt {
 
     }
 
-    public Receipt(String idReceipt, String idTable, String idCust, Date date) {
+    public Receipt(String idReceipt, String idReservation, String idCust, Date date) {
         this.idReceipt = idReceipt;
-        this.idTable = idTable;
+        this.idReservation = idReservation;
         this.idCust = idCust;
         this.date = date;
     }
@@ -27,12 +27,12 @@ public class Receipt {
         this.idReceipt = idReceipt;
     }
 
-    public String getIdTable() {
-        return idTable;
+    public String getIdReservation() {
+        return idReservation;
     }
 
-    public void setIdTable(String idTable) {
-        this.idTable = idTable;
+    public void setIdReservation(String idReservation) {
+        this.idReservation = idReservation;
     }
 
     public String getIdCust() {

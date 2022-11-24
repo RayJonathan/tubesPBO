@@ -6,10 +6,13 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import Controller.ConnectDatabase;
+import Controller.CustomerController;
+import Controller.SingletonCustomer;
 import Controller.SingletonDatabase;
+import Controller.SingletonReceipt;
+import Models.Discount;
 import Models.EnumStatusFood;
 import Models.ReceiptDetails;
-import Models.Transaction;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,21 +22,29 @@ import java.util.ArrayList;
 
 public class ViewTransaction {
     static ConnectDatabase conn = SingletonDatabase.getConnectObject();
+    double totalHarga = 0;
+    Discount diskon = new Discount("", 0);
     public static void main(String[] args) {
         new ViewTransaction();
     }
-
     public ViewTransaction(){
         JFrame frame = new JFrame("Transaksi");
-        Transaction transactions = getTransaction("TRA001");
-        ArrayList<ReceiptDetails> listMakanan = getRecieptDetail(transactions.getIdReciept());
-        ArrayList<Double> totalHargaMakanan = getTotal(transactions.getIdReciept());
+        SingletonCustomer sc = SingletonCustomer.getInstance();
+        SingletonReceipt sr = SingletonReceipt.getInstance();
+        String recieptId = "RE001";
+        String idCust = "";
+        double balCust = 0;
+
+        ArrayList<ReceiptDetails> listMakanan = getRecieptDetail(recieptId);
+        ArrayList<Double> hargaMakanan = getHargaMakanan(recieptId);
         
         int y = 20;
         for (int i = 0; i < listMakanan.size(); i++) {
             JLabel listPembelian = new JLabel(listMakanan.get(i).getQuantity() + "x "
                 + getNamaMakanan(listMakanan.get(i).getIdMenu()));
-            JLabel listHarga = new JLabel("Rp " + totalHargaMakanan.get(i));
+            JLabel listHarga = new JLabel("Rp " + hargaMakanan.get(i));
+
+            totalHarga += hargaMakanan.get(i);
 
             listPembelian.setBounds(50, y, 150, 25);
             listHarga.setBounds(200, y, 150, 25);
@@ -41,11 +52,17 @@ public class ViewTransaction {
             frame.add(listHarga);
             y += 50;
         }
-        JLabel discount = new JLabel("Discount: " + getDiscount(transactions.getIdDiscount()) + "%");
+        if (sc.getCurrentCustomer().getIsMember()) {
+            diskon = CustomerController.gachaDiscount();
+        }
+        totalHarga = totalHarga * (100-diskon.getDiscountAmount()) / 100;
+
+        JLabel discount = new JLabel("Discount: " + diskon.getDiscountAmount() + "%");
         discount.setBounds(50, y, 150, 25);
         frame.add(discount);
+
         y += 50;
-        JLabel total = new JLabel("Total: Rp" + transactions.getTotal());
+        JLabel total = new JLabel("Total: Rp" + totalHarga);
         total.setBounds(50, y, 150, 25);
         frame.add(total);
         y += 50;
@@ -55,6 +72,12 @@ public class ViewTransaction {
         frame.add(done);
         done.addActionListener((ActionListener) new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                if (balCust - totalHarga >= 0) {
+                    CustomerController.payFoods(idCust, balCust - totalHarga);
+                    CustomerController.newTransaction(recieptId, diskon.getIdDiscount(), totalHarga);
+                } else {
+                    new ViewTopUpATM("pppppppppppppppppppppUSERNAME", "bayar");
+                }
                 frame.dispose();
                 new ViewMenuCustomer();
             }
@@ -64,29 +87,6 @@ public class ViewTransaction {
         frame.setLayout(null);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
-    }
-
-    public Transaction getTransaction(String idTrans){
-        Transaction transaction = null;
-        ConnectDatabase conn = new ConnectDatabase();
-        conn.connect();
-        try {
-            java.sql.Statement stat = conn.con.createStatement();
-            ResultSet rs = stat.executeQuery("SELECT * FROM transaction WHERE id_transaction = '" + idTrans + "'");
-            while (rs.next()) {
-                String idTransaction = rs.getString("id_transaction");
-                String idReceipt = rs.getString("id_receipt");
-                String idDiscount = rs.getString("id_discount");
-                double total = rs.getDouble("total");
-                transaction = new Transaction(idTransaction, idReceipt, idDiscount, total);
-            }
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error!! Gagal memasukkan data ke database");
-            System.out.println(e);
-        }
-
-        conn.disconnect();
-        return transaction;
     }
     public ArrayList<ReceiptDetails> getRecieptDetail(String idReciept){
         ArrayList<ReceiptDetails> receiptDetails = new ArrayList<>();
@@ -109,7 +109,7 @@ public class ViewTransaction {
         conn.disconnect();
         return receiptDetails;
     }
-    public ArrayList<Double> getTotal(String idReciept){
+    public ArrayList<Double> getHargaMakanan(String idReciept){
         ArrayList<Double> totalReciept = new ArrayList<>();
         ConnectDatabase conn = new ConnectDatabase();
         conn.connect();
@@ -143,7 +143,7 @@ public class ViewTransaction {
         conn.disconnect();
         return nama;
     }
-    public int getDiscount(String idDiscount){
+    /* public int getDiscount(String idDiscount){
         int ammount = 0;
         ConnectDatabase conn = new ConnectDatabase();
         conn.connect();
@@ -159,8 +159,5 @@ public class ViewTransaction {
         }
         conn.disconnect();
         return ammount;
-    }
-    public static void main(String[] args) {
-        new ViewTransaction();
-    }
+    } */
 }

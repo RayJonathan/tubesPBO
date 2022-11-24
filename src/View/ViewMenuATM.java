@@ -27,7 +27,7 @@ public class ViewMenuATM {
         topUp.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 f.dispose();
-                new ViewTopUpATM(username);
+                new ViewTopUpATM(username, "atm");
             }
         });
         balance.addActionListener(new ActionListener() {

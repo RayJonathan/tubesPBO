@@ -32,7 +32,7 @@ public class CustomerController {
         return output;
     }
 
-    public static int gachaDiscount() {
+    public static Discount gachaDiscount() {
         conn.connect();
         ArrayList<Discount> discount = new ArrayList<>();
         String query = "SELECT * FROM discount";
@@ -47,7 +47,7 @@ public class CustomerController {
         }
         conn.disconnect();
         Random ran = new Random();
-        return discount.get(ran.nextInt(discount.size())).getDiscountAmount();
+        return discount.get(ran.nextInt(discount.size()));
     }
 
     public static String reserveMeja(String idTable, String idUser) {
@@ -167,5 +167,64 @@ public class CustomerController {
         }else{
             return 0;
         }
+    }
+    public static String hitungIdTransaction() {
+        String idTerbaru = "";
+        String query = "SELECT COUNT(id_transaction) as 'Count' FROM transaction";
+        conn.connect();
+        try {
+            Statement stmt = conn.con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+
+            int idTerbesar = 0;
+            if (rs.next()) {
+                idTerbesar = rs.getInt("Count");
+            }
+            int angkaTerbaru = idTerbesar + 1;
+            String angkaStrTerbaru = Integer.toString(angkaTerbaru);
+            if (angkaTerbaru < 10) {
+                idTerbaru = "TRA00" + angkaStrTerbaru;
+            } else if (angkaTerbaru < 100) {
+                idTerbaru = "TRA0" + angkaStrTerbaru;
+            } else {
+                idTerbaru = "TRA" + angkaStrTerbaru;
+            }
+        } catch (SQLException except) {
+            except.printStackTrace();
+        }
+        return idTerbaru;
+    }
+    public static String newTransaction(String idReceipt, String idDiscount, double total) {
+        conn.connect();
+        try {
+            PreparedStatement stat = conn.con.prepareStatement(
+                    "INSERT INTO transaction VALUES(?,?,?,?)");
+            stat.setString(1, hitungIdTransaction());
+            stat.setString(2, idReceipt);
+            stat.setString(3, idDiscount);
+            stat.setDouble(3, total);
+            stat.executeUpdate();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error!! Gagal memasukkan data ke database");
+            System.out.println(e);
+        }
+        conn.disconnect();
+        return "";
+    }
+    public static String payFoods(String idCust, double newBal) {
+        conn.connect();
+        String output = "";
+        String query = "UPDATE customer SET balance ='" + newBal + "'"
+                + "WHERE id_cust ='" + idCust + "'";
+        ;
+        try {
+            Statement stmt = conn.con.createStatement();
+            stmt.executeUpdate(query);
+            output = "Berhasil memasukan data";
+        } catch (SQLException e) {
+            output = "Gagal memasukan data";
+        }
+        conn.disconnect();
+        return output;
     }
 }
