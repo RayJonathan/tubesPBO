@@ -31,9 +31,9 @@ public class ViewTransaction {
         JFrame frame = new JFrame("Transaksi");
         SingletonCustomer sc = SingletonCustomer.getInstance();
         SingletonReceipt sr = SingletonReceipt.getInstance();
-        String recieptId = "RE001";
-        String idCust = "";
-        double balCust = 0;
+        String recieptId = "RE001"; //Singleton
+        String idCust = ""; //Singleton
+        double balCust = 0; //Singleton
 
         ArrayList<ReceiptDetails> listMakanan = getRecieptDetail(recieptId);
         ArrayList<Double> hargaMakanan = getHargaMakanan(recieptId);
@@ -52,7 +52,7 @@ public class ViewTransaction {
             frame.add(listHarga);
             y += 50;
         }
-        if (sc.getCurrentCustomer().getIsMember()) {
+        if (sc.getCurrentCustomer().getIsMember()) {  //Singleton
             diskon = CustomerController.gachaDiscount();
         }
         totalHarga = totalHarga * (100-diskon.getDiscountAmount()) / 100;
@@ -76,7 +76,7 @@ public class ViewTransaction {
                     CustomerController.payFoods(idCust, balCust - totalHarga);
                     CustomerController.newTransaction(recieptId, diskon.getIdDiscount(), totalHarga);
                 } else {
-                    new ViewTopUpATM("pppppppppppppppppppppUSERNAME", "bayar");
+                    new ViewTopUpATM("pppppppppppppppppppppUSERNAME", "bayar");  //Singleton
                 }
                 frame.dispose();
                 new ViewMenuCustomer();
