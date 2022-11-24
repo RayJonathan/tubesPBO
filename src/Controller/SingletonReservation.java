@@ -7,7 +7,7 @@ public class SingletonReservation {
     private static SingletonReservation instance;
     private Reservation currentReservation;
 
-    public SingletonReservation getInstance() {
+    public static SingletonReservation getInstance() {
         if (instance == null) {
             instance = new SingletonReservation();
         }

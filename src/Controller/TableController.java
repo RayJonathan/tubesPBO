@@ -8,7 +8,7 @@ public class TableController {
 
     public static void isOccupiedManipulation(String noTable) {
         conn.connect();
-        String query = "UPDATE table set isOccupied = '1' WHERE id_table = '" + noTable + "'";
+        String query = "UPDATE `table` SET isOccupied = '1' WHERE noTable = '" + noTable + "'";
         try {
             Statement stmt = conn.con.createStatement();
             stmt.executeUpdate(query);

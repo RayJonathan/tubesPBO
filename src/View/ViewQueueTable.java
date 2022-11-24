@@ -1,6 +1,8 @@
 package View;
 
 import Controller.*;
+import Models.Reservation;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -13,6 +15,7 @@ import javax.swing.JLabel;
 public class ViewQueueTable extends JFrame implements ActionListener {
     ConnectDatabase conn = SingletonDatabase.getConnectObject();
     SingletonCustomer cust = SingletonCustomer.getInstance();
+    SingletonReservation res = SingletonReservation.getInstance();
     JFrame f = new JFrame("");
     JLabel labTitle;
     JButton buttonContinue, buttonBack;
@@ -84,6 +87,10 @@ public class ViewQueueTable extends JFrame implements ActionListener {
         if (e.getSource() == buttonContinue) {
             if(countTable==0){
                 TableController.isOccupiedManipulation(noTable);
+                String idReservation = ReservationController.hitungId();
+                Reservation reservation = new Reservation(idReservation, table, cust.getCurrentCustomer().getIdCust());
+                ReservationController.insertDB(idReservation, table, cust.getCurrentCustomer().getIdCust());
+                res.setcurrentReservation(reservation);
                 new ViewMenuMakanan();
             } else {
                 QueueController.insertIntoQueue(capacityStatic);

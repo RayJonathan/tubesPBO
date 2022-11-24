@@ -85,5 +85,24 @@ public class ReservationController {
         conn.disconnect();
         return idTerbaru;
     }
+    public static void insertDB(String idReservation, String idTable, String idCust) {
+        conn.connect();
+        try {
+            PreparedStatement pstat = conn.con.prepareStatement(
+                    "INSERT INTO `reservation`(`id_reservation`, `id_table`, `id_cust`) VALUES (?,?,?)");
+
+            pstat.setString(1, idReservation);
+            pstat.setString(2, idTable);
+            pstat.setString(3, idCust);
+            pstat.executeUpdate();
+
+            JOptionPane.showMessageDialog(null, "Berhasil memasukkan data ke database");
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error!! Gagal memasukkan data ke database");
+            System.out.println(e);
+        }
+
+        conn.disconnect();
+    }
 }
 //
