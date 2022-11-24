@@ -16,21 +16,20 @@ public class ViewMenuMakanan {
     static ConnectDatabase conn = SingletonDatabase.getConnectObject();
 
     public ViewMenuMakanan() {
-        SingletonReservation srv = new SingletonReservation();
         JFrame frame = new JFrame("Menu Makanan");
         ArrayList<Menu> showfood = showFood();
         String rsvId = SingletonReservation.getInstance().getCurrentResarvation().getIdReservation();
         String rcptId = FoodOrderController.hitungIdReceipt();
         String idCust = SingletonReservation.getInstance().getCurrentResarvation().getIdCustomer();
-        SingletonReceipt sr = new SingletonReceipt();
+        SingletonReceipt sr = SingletonReceipt.getInstance();
 
         java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
 
         Receipt receipt = new Receipt(rcptId, rsvId, idCust, date);
         sr.setCurrentReceipt(receipt);
-        FoodOrderController.insertDbReceipt(SingletonReceipt.getInstance().getCurrentReceipt().getIdReceipt(),
-                SingletonReceipt.getInstance().getCurrentReceipt().getidReservation(),
-                SingletonReceipt.getInstance().getCurrentReceipt().getDate());
+        FoodOrderController.insertDbReceipt(sr.getCurrentReceipt().getIdReceipt(),
+            sr.getCurrentReceipt().getidReservation(),
+            sr.getCurrentReceipt().getDate());
         ArrayList<JTextField> quantity = new ArrayList<>();
 
         int y = 0;
@@ -52,10 +51,10 @@ public class ViewMenuMakanan {
                 for (int i = 0; i < quantity.size(); i++) {
                     int value = Integer.parseInt(quantity.get(i).getText());
                     if (value != 0) {
-
                         FoodOrderController.insertDB(showfood.get(i).getIdMenu(), value, showfood.get(i).getPrice(),
-                                SingletonReceipt.getInstance().getCurrentReceipt().toString());
+                                sr.getCurrentReceipt().getIdReceipt());
                         new ViewMenuCustomer();
+                        frame.dispose();
                     }
                 }
             }
