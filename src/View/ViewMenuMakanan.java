@@ -4,11 +4,12 @@ import java.awt.event.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
+import Controller.*;
 import javax.swing.*;
 
 import Controller.*;
 import Models.Menu;
+import Models.Reservation;
 
 public class ViewMenuMakanan {
     static ConnectDatabase conn = SingletonDatabase.getConnectObject();
@@ -16,7 +17,10 @@ public class ViewMenuMakanan {
     public ViewMenuMakanan() {
         JFrame frame = new JFrame("Menu Makanan");
         ArrayList<Menu> showfood = showFood();
-        SingletonReservation 
+        SingletonReservation srv = new SingletonReservation();
+        Reservation reservation = new Reservation();
+        String idRsv = ReservationController.hitungId();
+
         ArrayList<JTextField> quantity = new ArrayList<>();
 
         int y = 0;
