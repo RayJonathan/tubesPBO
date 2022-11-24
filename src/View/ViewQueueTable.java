@@ -82,7 +82,7 @@ public class ViewQueueTable extends JFrame implements ActionListener {
         if (e.getSource() == buttonContinue) {
             if(countTable==0){
                 System.out.println("a");
-                new MenuMakanan();
+                new ViewMenuMakanan();
             }else{
                 QueueController.insertIntoQueue(capacityStatic);
                 new ViewMenuCustomer();

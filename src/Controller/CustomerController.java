@@ -138,4 +138,28 @@ public class CustomerController {
         conn.disconnect();
         return transaksi;
     }
+    public static int urutanQueue(){
+        SingletonCustomer sc = SingletonCustomer.getInstance();
+        SingletonQueue sq = SingletonQueue.getInstance();
+        int countTable = 0;
+        conn.connect();
+        String query = "SELECT * FROM queue WHERE capacity= "+sq.getcurrentQueue().getJumlahOrang();
+        try{
+            Statement stmt = conn.con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            boolean exit = false;
+            while(rs.next() && !exit){
+                if(rs.getString("id_cust")==sc.getCurrentCustomer().getIdCust()){
+                    exit = true;
+                }else{
+                    countTable++;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        conn.disconnect();
+        return countTable;
+    }
 }
