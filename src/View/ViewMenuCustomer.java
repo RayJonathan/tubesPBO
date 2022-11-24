@@ -20,8 +20,9 @@ public class ViewMenuCustomer extends JFrame implements ActionListener {
 
     public ViewMenuCustomer() {        
         String text = "";
-        boolean valid = QueueController.cekValiditasQueue();
-        if(valid == true){
+        boolean validQueue = QueueController.cekValiditasQueue();
+        //boolean validOrder = CustomerController.cekValiditasOrder();
+        if(validQueue == true){
             text = "<html>Selamat Datang, "+cust.getFirstname()+"<br> queuemu "+CustomerController.urutanQueue()+"</html>";
         }else{
             text = "<html>Selamat Datang, "+cust.getFirstname();

@@ -28,7 +28,7 @@ public class ViewMenuReservation extends JFrame implements ActionListener {
         buttonBack.setBounds(30, 270, 120, 40);
 
         ButtonGroup bg=new ButtonGroup();    
-        bg.add(jr1);bg.add(jr2);    
+        bg.add(jr1);bg.add(jr2);bg.add(jr3);    
 
         f.add(labTitle);
         f.add(jr1);
@@ -44,9 +44,6 @@ public class ViewMenuReservation extends JFrame implements ActionListener {
         f.setLayout(null);
         f.setVisible(true);
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    }
-    public static void main(String[] args) {
-        new ViewMenuReservation();
     }
     @Override
     public void actionPerformed(ActionEvent e) {

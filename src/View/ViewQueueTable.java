@@ -61,7 +61,7 @@ public class ViewQueueTable extends JFrame implements ActionListener {
         buttonContinue = new JButton("Confirm");
         buttonBack = new JButton("Cancel");
 
-        labTitle.setBounds(20, 20, 100, 20);
+        labTitle.setBounds(20, 20, 200, 40);
         buttonContinue.setBounds(200, 100, 100, 40);
         buttonBack.setBounds(80, 100, 100, 40);
 
@@ -81,7 +81,7 @@ public class ViewQueueTable extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == buttonContinue) {
             if(countTable==0){
-                System.out.println("a");
+                TableController.isOccupiedManipulation(noTable);
                 new ViewMenuMakanan();
             }else{
                 QueueController.insertIntoQueue(capacityStatic);
