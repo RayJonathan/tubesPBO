@@ -12,19 +12,25 @@ import javax.swing.JLabel;
 
 public class ViewQueueTable extends JFrame implements ActionListener {
     ConnectDatabase conn = SingletonDatabase.getConnectObject();
+    SingletonCustomer cust = SingletonCustomer.getInstance();
     JFrame f = new JFrame("");
     JLabel labTitle;
     JButton buttonContinue, buttonBack;
     String table ="";
+    String noTable ="";
     int countTable = 0;
+    int capacityStatic = 0;
 
     public ViewQueueTable(int capacity){
+        conn.connect();
+        capacityStatic = capacity;
         String query = "SELECT * FROM `table` WHERE isOccupied = 0 AND capacity="+capacity;
         try{
             Statement stmt = conn.con.createStatement();
             ResultSet rs = stmt.executeQuery(query);
             if(rs.next()){
                 table = rs.getString("id_table");
+                noTable = rs.getString("noTable");
             }else{
                 table = "kosong";
             }
@@ -32,9 +38,28 @@ public class ViewQueueTable extends JFrame implements ActionListener {
             e.printStackTrace();
         }
 
-        labTitle = new JLabel("Queuemu adalah "+countTable);
-        buttonContinue = new JButton("Continue");
-        buttonBack = new JButton("Return");
+        String query2 = "SELECT * FROM queue WHERE id_cust <> '"+cust.getCurrentCustomer().getIdCust()+"' AND capacity= "+capacity;
+        try{
+            Statement stmt2 = conn.con.createStatement();
+            ResultSet rs2 = stmt2.executeQuery(query2);
+            while(rs2.next()){
+                countTable++;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        conn.disconnect();
+
+        String stringTitle="";
+        if(countTable==0){
+            stringTitle = "Silahkan duduk, mejamu di meja "+noTable;
+        }else{
+            stringTitle = "Queuemu adalah "+countTable+ ", confirm reservation/cancel";
+        }
+        labTitle = new JLabel(stringTitle);
+        buttonContinue = new JButton("Confirm");
+        buttonBack = new JButton("Cancel");
 
         labTitle.setBounds(20, 20, 100, 20);
         buttonContinue.setBounds(200, 100, 100, 40);
@@ -54,13 +79,18 @@ public class ViewQueueTable extends JFrame implements ActionListener {
     }
     @Override
     public void actionPerformed(ActionEvent e) {
-        f.dispose();
         if (e.getSource() == buttonContinue) {
-            new MenuMakanan();
-            
-            new MenuCustomer();
+            if(countTable==0){
+                System.out.println("a");
+                new MenuMakanan();
+            }else{
+                QueueController.insertIntoQueue(capacityStatic);
+                new ViewMenuCustomer();
+            }
+            f.dispose();
         } else if (e.getSource() == buttonBack) {
             new ViewMenuCustomer();
+            f.dispose();
         }
     }
 }

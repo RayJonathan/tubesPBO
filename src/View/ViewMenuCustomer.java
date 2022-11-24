@@ -7,6 +7,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import Models.EnumStatusUser;
+import Models.QueueTable;
 import Models.Customer;
 
 public class ViewMenuCustomer extends JFrame implements ActionListener {
@@ -16,9 +17,17 @@ public class ViewMenuCustomer extends JFrame implements ActionListener {
     JFrame f = new JFrame("");
     JLabel labTitle;
     JButton buttonReservation, buttonJoinMember, buttonATM, buttonUpdateProfile, buttonLogout, buttonFoodOrder;
+    static SingletonQueue queue = SingletonQueue.getInstance();
+    QueueTable q = queue.getcurrentQueue();
 
-    public ViewMenuCustomer() {
-        labTitle = new JLabel("Selamat Datang, "+cust.getFirstname());
+    public ViewMenuCustomer() {        
+        if(q == null){
+            System.out.println("ya");
+        }else{
+            System.out.println(q.getIdCust());
+        }
+        //labTitle = new JLabel("<html>Selamat Datang, "+cust.getFirstname()+"<br>"+idQueue+"</html>");
+        labTitle = new JLabel("a");
         buttonFoodOrder = new JButton("Reserve Button");
         buttonReservation = new JButton("Reserve Table");
         buttonJoinMember = new JButton("Join Membership");
