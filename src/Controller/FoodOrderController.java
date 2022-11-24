@@ -16,33 +16,6 @@ public class FoodOrderController {
     Customer cust;
     static ConnectDatabase conn = SingletonDatabase.getConnectObject();
 
-    public static String hitungId() {
-        String idTerbaru = "";
-        String query = "SELECT COUNT(id_receipt) as 'Count' FROM receipt";
-        conn.connect();
-        try {
-            Statement stmt = conn.con.createStatement();
-            ResultSet rs = stmt.executeQuery(query);
-
-            int idTerbesar = 0;
-            if (rs.next()) {
-                idTerbesar = rs.getInt("Count");
-            }
-            int angkaTerbaru = idTerbesar + 1;
-            String angkaStrTerbaru = Integer.toString(angkaTerbaru);
-            if (angkaTerbaru < 10) {
-                idTerbaru = "R00" + angkaStrTerbaru;
-            } else if (angkaTerbaru < 100) {
-                idTerbaru = "R0" + angkaStrTerbaru;
-            } else {
-                idTerbaru = "R" + angkaStrTerbaru;
-            }
-        } catch (SQLException except) {
-            except.printStackTrace();
-        }
-        return idTerbaru;
-    }
-
     public static String hitungIdDetail() {
         String idTerbaru = "";
         String query = "SELECT COUNT(id_receiptDetails) as 'Count' FROM receiptdetails";
@@ -70,14 +43,14 @@ public class FoodOrderController {
         return idTerbaru;
     }
 
-    public static void insertDB(String idMenu, int qty, double price) {
+    public static void insertDB(String idMenu, int qty, double price, String idReceipt) {
         conn.connect();
         try {
             PreparedStatement pstat = conn.con.prepareStatement(
                     "INSERT INTO receiptdetails(id_receiptDetails, id_receipt, id_menu, quantity, status_food_progress, subtotal) VALUES (?,?,?,?,?,?)");
 
             pstat.setString(1, hitungIdDetail());
-            pstat.setString(2, hitungId());
+            pstat.setString(2, idReceipt);
             pstat.setString(3, idMenu);
             pstat.setInt(4, qty);
             pstat.setString(5, "Pending");

@@ -13,6 +13,10 @@ import Models.Menu;
 public class MenuMakanan {
     static ConnectDatabase conn = SingletonDatabase.getConnectObject();
 
+    public static void main(String[] args) {
+        new MenuMakanan();
+    }
+
     public MenuMakanan() {
         JFrame frame = new JFrame("Menu Makanan");
         ArrayList<Menu> showfood = showFood();
@@ -39,7 +43,8 @@ public class MenuMakanan {
                     int value = Integer.parseInt(quantity.get(i).getText());
                     if (value != 0) {
 
-                        FoodOrderController.insertDB(showfood.get(i).getIdMenu(), value, showfood.get(i).getPrice());
+                        FoodOrderController.insertDB(showfood.get(i).getIdMenu(), value, showfood.get(i).getPrice(),
+                                "TEMPORARY");
                         System.out.println(value);
                     }
                 }
