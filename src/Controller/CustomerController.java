@@ -141,16 +141,19 @@ public class CustomerController {
     public static int urutanQueue(){
         SingletonCustomer sc = SingletonCustomer.getInstance();
         SingletonQueue sq = SingletonQueue.getInstance();
-        int countTable = 0;
+        int countTable = 1;
         conn.connect();
+        boolean ketemu = false;
         String query = "SELECT * FROM queue WHERE capacity= "+sq.getcurrentQueue().getJumlahOrang();
         try{
             Statement stmt = conn.con.createStatement();
             ResultSet rs = stmt.executeQuery(query);
             boolean exit = false;
             while(rs.next() && !exit){
-                if(rs.getString("id_cust")==sc.getCurrentCustomer().getIdCust()){
+                System.out.println("wajib");
+                if(rs.getString("id_cust").equals(sc.getCurrentCustomer().getIdCust())){
                     exit = true;
+                    ketemu = true;
                 }else{
                     countTable++;
                 }
@@ -160,6 +163,12 @@ public class CustomerController {
         }
         
         conn.disconnect();
-        return countTable;
+        if(ketemu){
+            System.out.println(countTable);
+            return countTable;
+        }else{
+            System.out.println("countTable");
+            return 0;
+        }
     }
 }
