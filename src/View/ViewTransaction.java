@@ -76,7 +76,7 @@ public class ViewTransaction {
                     CustomerController.payFoods(idCust, balCust - totalHarga);
                     CustomerController.newTransaction(recieptId, diskon.getIdDiscount(), totalHarga);
                 } else {
-                    new ViewTopUpATM("pppppppppppppppppppppUSERNAME", "bayar");  //Singleton
+                    new ViewTopUpATM("USERNAME SINGLETON", "bayar");  //Singleton
                 }
                 frame.dispose();
                 new ViewMenuCustomer();
