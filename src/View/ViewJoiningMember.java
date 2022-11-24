@@ -42,7 +42,7 @@ public class ViewJoiningMember extends JFrame implements ActionListener {
                 JOptionPane.showMessageDialog(null, "Berhasil, kamu member kami");
                 new ViewMenuCustomer();
             }else{
-                new TopUpATM("123");
+                new ViewTopUpATM("123");
             }
         }
         if(e.getSource() == buttonBack){

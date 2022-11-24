@@ -10,6 +10,23 @@ public class QueueController {
     static SingletonCustomer cust = SingletonCustomer.getInstance();
     static SingletonQueue queue = SingletonQueue.getInstance();
 
+    public static void cekValiditasQueue(){
+        conn.connect();
+        String idCust = cust.getCurrentCustomer().getIdCust();
+        String queryIdQueue = "SELECT * FROM queue WHERE id_cust='"+idCust+"'";
+        try {
+            Statement stmtIdQueue = conn.con.createStatement();
+            ResultSet rsIdQueue = stmtIdQueue.executeQuery(queryIdQueue);
+            if (rsIdQueue.next()) {
+                QueueTable q = new QueueTable(rsIdQueue.getInt("id_queue"), idCust, rsIdQueue.getInt("capacity"));
+                queue.setcurrentQueue(q);
+            }
+        } catch (SQLException eQueue) {
+            eQueue.printStackTrace();
+        }
+        conn.disconnect();
+    }
+
     public static void insertIntoQueue(int capacity){
         conn.connect();
         int countID = 0;

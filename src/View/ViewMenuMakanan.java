@@ -10,14 +10,14 @@ import javax.swing.*;
 import Controller.*;
 import Models.Menu;
 
-public class MenuMakanan {
+public class ViewMenuMakanan {
     static ConnectDatabase conn = SingletonDatabase.getConnectObject();
 
     public static void main(String[] args) {
-        new MenuMakanan();
+        new ViewMenuMakanan();
     }
 
-    public MenuMakanan() {
+    public ViewMenuMakanan() {
         JFrame frame = new JFrame("Menu Makanan");
         ArrayList<Menu> showfood = showFood();
 

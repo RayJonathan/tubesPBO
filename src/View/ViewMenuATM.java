@@ -4,8 +4,8 @@ import java.awt.event.*;
 import Controller.ATMController;
 import javax.swing.*;
 
-public class MainATM {
-    public MainATM() { 
+public class ViewMenuATM {
+    public ViewMenuATM() { 
         
         String username = "123";
         JFrame f = new JFrame("ATM");
@@ -27,7 +27,7 @@ public class MainATM {
         topUp.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 f.dispose();
-                new TopUpATM(username);
+                new ViewTopUpATM(username);
             }
         });
         balance.addActionListener(new ActionListener() {

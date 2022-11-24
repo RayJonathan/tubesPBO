@@ -6,8 +6,8 @@ import javax.swing.*;
 
 import Controller.ATMController;
 
-public class TopUpATM {
-    public TopUpATM(String username) {
+public class ViewTopUpATM {
+    public ViewTopUpATM(String username) {
         // rememebr last opened menu, and make it as dirrection for actionlistener
         // topup/back
         JFrame f = new JFrame("TOP UP");
@@ -44,7 +44,7 @@ public class TopUpATM {
         back.addActionListener((ActionListener) new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 f.dispose();
-                new MainATM();
+                new ViewMenuATM();
 
             }
         });

@@ -17,18 +17,19 @@ public class ViewMenuCustomer extends JFrame implements ActionListener {
     JFrame f = new JFrame("");
     JLabel labTitle;
     JButton buttonReservation, buttonJoinMember, buttonATM, buttonUpdateProfile, buttonLogout, buttonFoodOrder;
-    static SingletonQueue queue = SingletonQueue.getInstance();
-    QueueTable q = queue.getcurrentQueue();
+    SingletonQueue sq = SingletonQueue.getInstance();
 
     public ViewMenuCustomer() {        
+        String text = "";
+        QueueController.cekValiditasQueue();
+        QueueTable q = sq.getcurrentQueue();
         if(q == null){
-            System.out.println("ya");
+            text = "<html>Selamat Datang, "+cust.getFirstname();
         }else{
-            System.out.println(q.getIdCust());
+            text = "<html>Selamat Datang, "+cust.getFirstname()+"<br> queuemu "+CustomerController.urutanQueue()+"</html>";
         }
-        //labTitle = new JLabel("<html>Selamat Datang, "+cust.getFirstname()+"<br>"+idQueue+"</html>");
-        labTitle = new JLabel("a");
-        buttonFoodOrder = new JButton("Reserve Button");
+        labTitle = new JLabel(text);
+        buttonFoodOrder = new JButton("Order Food");
         buttonReservation = new JButton("Reserve Table");
         buttonJoinMember = new JButton("Join Membership");
         buttonATM = new JButton("Balance");
@@ -70,7 +71,7 @@ public class ViewMenuCustomer extends JFrame implements ActionListener {
         } else if (e.getSource() == buttonJoinMember) {
             new ViewMember();
         } else if (e.getSource() == buttonATM) {
-            new MainATM();
+            new ViewMenuATM();
         } else if (e.getSource() == buttonUpdateProfile) {
             new ViewUpdateProfile(EnumStatusUser.CUSTOMER);
         } else if (e.getSource() == buttonLogout) {
