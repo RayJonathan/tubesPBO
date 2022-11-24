@@ -100,7 +100,6 @@ public class ViewTransaction {
                 String idReceipt = rs.getString("id_receipt");
                 String idMenu = rs.getString("id_menu");
                 int quantity = rs.getInt("quantity");
-                double total = rs.getDouble("subtotal");
                 receiptDetails.add(new ReceiptDetails(idReceiptDetails, idReceipt, idMenu, quantity, EnumStatusFood.DELIVERED));
             }
         } catch (SQLException e) {
