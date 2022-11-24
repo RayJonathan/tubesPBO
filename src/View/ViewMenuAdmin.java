@@ -15,9 +15,11 @@ import Models.QueueTable;
 
 public class ViewMenuAdmin {
     static ConnectDatabase conn = SingletonDatabase.getConnectObject();
+    JButton buttonTotalIncome, buttonTotalSale, buttonManageQueue, buttonAddMenu, buttonUpdateStatusFood;
+
     public ViewMenuAdmin() {
         JFrame f = new JFrame("Menu Admin");
-        
+
         JLabel labTitle = new JLabel("Menu Admin");
         JButton buttonTotalIncome = new JButton("Total Income");
         JButton buttonTotalSale = new JButton("Total Sale");
@@ -42,38 +44,42 @@ public class ViewMenuAdmin {
         f.add(buttonUpdateStatusFood);
         f.add(buttonLogout);
 
-        buttonTotalIncome.addActionListener(e ->{
-            JOptionPane.showMessageDialog(null, 
-            "Total seluruh pendapatan sebesar: " + AdminController.totalIncome());
+        f.setSize(400, 500);
+        buttonTotalIncome.addActionListener(e -> {
+            JOptionPane.showMessageDialog(null,
+                    "Total seluruh pendapatan sebesar: " + AdminController.totalIncome());
         });
 
-        buttonTotalSale.addActionListener(e ->{
-            JOptionPane.showMessageDialog(null, 
-            "Total penjualan: \n" + AdminController.totalSale());
+        buttonTotalSale.addActionListener(e -> {
+            JOptionPane.showMessageDialog(null,
+                    "Total penjualan: \n" + AdminController.totalSale());
         });
 
-        buttonManageQueue.addActionListener(e ->{});
+        buttonManageQueue.addActionListener(e -> {
 
-        buttonAddMenu.addActionListener(e ->{
+        });
+
+        buttonAddMenu.addActionListener(e -> {
             f.dispose();
             AddMenu();
         });
 
-        buttonUpdateStatusFood.addActionListener(e ->{});
+        buttonUpdateStatusFood.addActionListener(e -> {
+        });
 
-        buttonLogout.addActionListener(e ->{
+        buttonLogout.addActionListener(e -> {
             f.dispose();
             new ViewMenuUtama();
         });
-
         f.setSize(400, 500);
         f.setLayout(null);
         f.setVisible(true);
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
+
     public void AddMenu() {
         JFrame f = new JFrame("Add Menu");
-        
+
         JLabel labTitle = new JLabel("Add New Menu");
         JLabel labIdMenu = new JLabel("Id Menu:");
         JLabel labNameMenu = new JLabel("Menu Name:");
@@ -124,17 +130,17 @@ public class ViewMenuAdmin {
         f.add(buttonAdd);
         f.add(buttonCancel);
 
-        buttonAdd.addActionListener(e ->{
+        buttonAdd.addActionListener(e -> {
             String idMenu = inpIdMenu.getText();
             String namaMenu = inpNameMenu.getText();
             String categoryTemp = "";
-            if(food.isSelected()) {
+            if (food.isSelected()) {
                 categoryTemp = "Food";
-            } else if(drink.isSelected()) {
+            } else if (drink.isSelected()) {
                 categoryTemp = "Drink";
             }
             double price = Double.parseDouble(inpPrice.getText());
-            
+
             Menu newMenu = new Menu(idMenu, namaMenu, categoryTemp, price);
 
             AdminController.addMenu(newMenu);
@@ -143,17 +149,17 @@ public class ViewMenuAdmin {
             new ViewMenuAdmin();
         });
 
-        buttonCancel.addActionListener(e ->{
+        buttonCancel.addActionListener(e -> {
             f.dispose();
             new ViewMenuAdmin();
         });
-
 
         f.setSize(400, 500);
         f.setLayout(null);
         f.setVisible(true);
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
+
     public void ManageQueue() {
         conn.connect();
         String query = "SELECT * FROM queue";
@@ -172,16 +178,16 @@ public class ViewMenuAdmin {
             e.printStackTrace();
         }
         conn.disconnect();
-        
+
         JFrame f = new JFrame("Add Menu");
-        
+
         ArrayList<JCheckBox> indexQueue = new ArrayList<>();
         int y = 20;
         for (int i = 0; i < queue.size(); i++) {
             indexQueue.add(new JCheckBox(
-                "Id Queue: " + queue.get(i).getIdQueue()
-                + ", Id Customer: " + queue.get(i).getIdCust()
-                + ", Capacity: " + queue.get(i).getJumlahOrang()));
+                    "Id Queue: " + queue.get(i).getIdQueue()
+                            + ", Id Customer: " + queue.get(i).getIdCust()
+                            + ", Capacity: " + queue.get(i).getJumlahOrang()));
             indexQueue.get(i).setBounds(50, y, 150, 25);
             f.add(indexQueue.get(i));
             y += 50;
@@ -196,7 +202,7 @@ public class ViewMenuAdmin {
         f.add(buttonDelete);
         f.add(buttonCancel);
 
-        buttonDelete.addActionListener(e ->{
+        buttonDelete.addActionListener(e -> {
             for (int i = 0; i < queue.size(); i++) {
                 if (indexQueue.get(i).isSelected()) {
                     AdminController.deleteUser(queue.get(i).getIdQueue());
@@ -206,7 +212,7 @@ public class ViewMenuAdmin {
             new ViewMenuAdmin();
         });
 
-        buttonCancel.addActionListener(e ->{
+        buttonCancel.addActionListener(e -> {
             f.dispose();
             new ViewMenuAdmin();
         });
@@ -215,5 +221,6 @@ public class ViewMenuAdmin {
         f.setLayout(null);
         f.setVisible(true);
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
     }
 }

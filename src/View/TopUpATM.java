@@ -8,7 +8,7 @@ import Controller.ATMController;
 
 public class TopUpATM {
     public TopUpATM(String username) {
-
+        //rememebr last opened menu, and make it as dirrection for actionlistener topup/back
         JFrame f = new JFrame("TOP UP");
         JLabel tag1 = new JLabel("TOP UP BALANCE");
         JLabel tag2 = new JLabel("Insert Balance");
