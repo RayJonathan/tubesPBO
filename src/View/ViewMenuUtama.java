@@ -11,6 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import Models.*;
 
 /**
  *
@@ -73,15 +74,35 @@ public class ViewMenuUtama extends JFrame implements ActionListener {
                 Statement stmt = conn.con.createStatement();
                 ResultSet rs = stmt.executeQuery(query);
                 while (rs.next()) {
+                    SingletonCustomer sc = SingletonCustomer.getInstance();
+                    Customer cust = new Customer();
                     id = rs.getString("id_cust");
+                    cust.setIdCust(id);
+                    cust.setUsername(rs.getString("username"));
+                    cust.setPassword(rs.getString("password"));
+                    cust.setFirstname(rs.getString("firstname"));
+                    cust.setLastname(rs.getString("lastname"));
+                    cust.setEmail(rs.getString("email"));
+                    cust.setIsMember(rs.getBoolean("isMember"));
+                    cust.setBalance(rs.getDouble("balance"));
                     status = "cust";
+                    sc.setCurrentCustomer(cust);
                 }
 
                 Statement stmt2 = conn.con.createStatement();
                 ResultSet rs2 = stmt2.executeQuery(query2);
                 while (rs2.next()) {
+                    SingletonAdmin sa = SingletonAdmin.getInstance();
+                    Admin admin = new Admin();
                     id = rs2.getString("id_admin");
+                    admin.setIdAdmin(id);
+                    admin.setUsername(rs.getString("username"));
+                    admin.setPassword(rs.getString("password"));
+                    admin.setFirstname(rs.getString("firstname"));
+                    admin.setLastname(rs.getString("lastname"));
+                    admin.setEmail(rs.getString("email"));
                     status = "admin";
+                    sa.setCurrentAdmin(admin);
                 }
 
                 if (!id.equals("")) {

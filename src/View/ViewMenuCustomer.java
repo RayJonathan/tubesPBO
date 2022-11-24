@@ -6,15 +6,18 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import Models.Customer;
 
 public class ViewMenuCustomer extends JFrame implements ActionListener {
     ConnectDatabase conn = SingletonDatabase.getConnectObject();
     JFrame f = new JFrame("");
     JLabel labTitle;
     JButton buttonReservation, buttonJoinMember, buttonATM, buttonUpdateProfile, buttonLogout;
+    SingletonCustomer sc = SingletonCustomer.getInstance();
+    Customer cust = sc.getCurrentCustomer();
 
     public ViewMenuCustomer() {
-        labTitle = new JLabel("Hey");
+        labTitle = new JLabel("Hey "+ cust.getFirstname());
         buttonReservation = new JButton("Reserve Table");
         buttonJoinMember = new JButton("Join Membership");
         buttonATM = new JButton("Balance");
@@ -57,7 +60,7 @@ public class ViewMenuCustomer extends JFrame implements ActionListener {
         }else if(e.getSource() == buttonATM){
             new MainATM();
         }else if(e.getSource() == buttonUpdateProfile){
-            // new ViewUpdateProfile();
+            new ViewUpdateProfile();
         }else if(e.getSource() == buttonLogout){
             new ViewMenuUtama();
         }
