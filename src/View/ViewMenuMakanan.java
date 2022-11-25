@@ -55,7 +55,7 @@ public class ViewMenuMakanan {
                                 sr.getCurrentReceipt().getIdReceipt());
                     }
                 }
-                new ViewTransaction();
+                new ViewMenuCustomer();
                 frame.dispose();
             }
         });
@@ -86,7 +86,6 @@ public class ViewMenuMakanan {
             System.out.println(e);
         }
 
-        System.out.println(menu.size());
         conn.disconnect();
         return menu;
     }

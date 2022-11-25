@@ -21,6 +21,7 @@ import Models.*;
  */
 public class ViewMenuUtama extends JFrame implements ActionListener {
     ConnectDatabase conn = SingletonDatabase.getConnectObject();
+    SingletonStatusMenu ssm = SingletonStatusMenu.getInstance();
     JFrame f = new JFrame("");
     JTextField username;
     JPasswordField pass;
@@ -112,6 +113,8 @@ public class ViewMenuUtama extends JFrame implements ActionListener {
                 if (!id.equals("")) {
                     if (status.equals("cust")) {
                         new ViewMenuCustomer();
+                        StatusMenu sm = new StatusMenu(EnumStatusMenu.NOTHING);
+                        ssm.setcurrentMenu(sm);
                     } else {
                         new ViewMenuAdmin();
                     }

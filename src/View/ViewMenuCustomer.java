@@ -8,6 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import Models.EnumStatusUser;
 import Models.Customer;
+import Models.EnumStatusMenu;
 
 public class ViewMenuCustomer extends JFrame implements ActionListener {
     ConnectDatabase conn = SingletonDatabase.getConnectObject();
@@ -17,14 +18,17 @@ public class ViewMenuCustomer extends JFrame implements ActionListener {
     JLabel labTitle;
     JButton buttonReservation, buttonJoinMember, buttonATM, buttonUpdateProfile, buttonLogout, buttonFoodOrder, buttonPay;
     SingletonQueue sq = SingletonQueue.getInstance();
+    SingletonStatusMenu ssm = SingletonStatusMenu.getInstance();
 
     public ViewMenuCustomer() {        
         String text = "";
-        boolean validQueue = QueueController.cekValiditasQueue();
+        QueueController.cekValiditasQueue();
         //boolean validOrder = CustomerController.cekValiditasOrder();
-        if(validQueue == true){
+        ssm.getcurrentStatusMenu();
+        if(ssm.getcurrentStatusMenu().getEnumStatusMenu()==EnumStatusMenu.QUEUE){
             text = "<html>Selamat Datang, "+cust.getFirstname()+"<br> queuemu "+CustomerController.urutanQueue()+"</html>";
-        }else{
+        }
+        if(ssm.getcurrentStatusMenu().getEnumStatusMenu()==EnumStatusMenu.NOTHING)
             text = "<html>Selamat Datang, "+cust.getFirstname();
         }
         labTitle = new JLabel(text);

@@ -199,13 +199,32 @@ public class CustomerController {
         try {
             PreparedStatement stat = conn.con.prepareStatement(
                     "INSERT INTO transaction VALUES(?,?,?,?)");
-            stat.setString(1, hitungIdTransaction());
+            String idTransaction = hitungIdTransaction()
+            stat.setString(1, idTransaction);
             stat.setString(2, idReceipt);
             stat.setString(3, idDiscount);
             stat.setDouble(4, total);
             stat.executeUpdate();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error!! Gagal memasukkan data ke database");
+            System.out.println(e);
+        }
+        String idTable = "";
+        try{
+            String query = "SELECT id_table FROM reservation WHERE id_reservation =("+
+                "SELECT id_reservation FROM receipt WHERE id_receipt =("+
+                "SELECT id_receipt FROM transaction WHERE id_transaction = 'TRA006'))";
+            Statement stmt = conn.con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            if(rs.next()){
+                idTable = rs.getString("id_table");
+            }
+            
+            String query2 = "UPDATE `table` SET isOccupied = 0 WHERE id_table = '"+idTable+"'";
+            Statement stmt2 = conn.con.createStatement();
+            stmt2.executeUpdate(query2);
+        } catch(SQLException e){
+            JOptionPane.showMessageDialog(null, "Error!! Gagal memasukkan data ke database updatetableisoccupied");
             System.out.println(e);
         }
         conn.disconnect();
