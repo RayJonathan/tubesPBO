@@ -9,12 +9,15 @@ import java.util.Calendar;
 import Controller.*;
 import javax.swing.*;
 
+import Models.EnumStatusMenu;
 import Models.Menu;
 import Models.Receipt;
+import Models.StatusMenu;
 
 public class ViewMenuMakanan {
     static ConnectDatabase conn = SingletonDatabase.getConnectObject();
-
+    SingletonStatusMenu ssm = SingletonStatusMenu.getInstance();
+    StatusMenu sm = new StatusMenu(EnumStatusMenu.TRANSACTION);
     public ViewMenuMakanan() {
         JFrame frame = new JFrame("Menu Makanan");
         ArrayList<Menu> showfood = showFood();
@@ -55,6 +58,7 @@ public class ViewMenuMakanan {
                                 sr.getCurrentReceipt().getIdReceipt());
                     }
                 }
+                ssm.setcurrentMenu(sm);
                 new ViewMenuCustomer();
                 frame.dispose();
             }

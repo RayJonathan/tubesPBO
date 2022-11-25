@@ -199,7 +199,7 @@ public class CustomerController {
         try {
             PreparedStatement stat = conn.con.prepareStatement(
                     "INSERT INTO transaction VALUES(?,?,?,?)");
-            String idTransaction = hitungIdTransaction()
+            String idTransaction = hitungIdTransaction();
             stat.setString(1, idTransaction);
             stat.setString(2, idReceipt);
             stat.setString(3, idDiscount);

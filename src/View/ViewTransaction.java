@@ -23,6 +23,7 @@ import java.util.ArrayList;
 public class ViewTransaction {
     static ConnectDatabase conn = SingletonDatabase.getConnectObject();
     double totalHarga = 0;
+    int counterDiscount = 0;
     Discount diskon = new Discount("D000", 0);
     
     public ViewTransaction(){
@@ -50,9 +51,10 @@ public class ViewTransaction {
             frame.add(listHarga);
             y += 50;
         }
-        if (sc.getCurrentCustomer().getIsMember()) { 
+        if (sc.getCurrentCustomer().getIsMember() && counterDiscount==0) { 
             diskon = CustomerController.gachaDiscount();
         }
+        counterDiscount++;
         totalHarga = totalHarga * (100-diskon.getDiscountAmount()) / 100;
 
         JLabel discount = new JLabel("Discount: " + diskon.getDiscountAmount() + "%");
@@ -74,6 +76,7 @@ public class ViewTransaction {
                     CustomerController.payFoods(idCust, balCust - totalHarga);
                     CustomerController.newTransaction(recieptId, diskon.getIdDiscount(), totalHarga);
                     new ViewMenuCustomer();
+
                 } else {
                     new ViewTopUpATM(sc.getCurrentCustomer().getUsername(), "bayar");
                 }

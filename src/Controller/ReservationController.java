@@ -70,7 +70,6 @@ public class ReservationController {
             pstat.setString(3, idCust);
             pstat.executeUpdate();
 
-            JOptionPane.showMessageDialog(null, "Berhasil memasukkan data ke database");
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error!! Gagal memasukkan data ke database");
             System.out.println(e);

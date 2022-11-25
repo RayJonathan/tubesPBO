@@ -1,7 +1,9 @@
 package View;
 
 import Controller.*;
+import Models.EnumStatusMenu;
 import Models.Reservation;
+import Models.StatusMenu;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -16,12 +18,14 @@ public class ViewQueueTable extends JFrame implements ActionListener {
     ConnectDatabase conn = SingletonDatabase.getConnectObject();
     SingletonCustomer cust = SingletonCustomer.getInstance();
     SingletonReservation res = SingletonReservation.getInstance();
+    SingletonStatusMenu ssm = SingletonStatusMenu.getInstance();
+    StatusMenu sm = new StatusMenu(EnumStatusMenu.QUEUE);
     JFrame f = new JFrame("");
     JLabel labTitle;
     JButton buttonContinue, buttonBack;
     String table = "";
     String noTable = "";
-    int countTable = 0;
+    int countTable = 1;
     int capacityStatic = 0;
 
     public ViewQueueTable(int capacity) {
@@ -56,7 +60,7 @@ public class ViewQueueTable extends JFrame implements ActionListener {
         conn.disconnect();
 
         String stringTitle = "";
-        if (countTable == 0) {
+        if (!table.equals("kosong")) {
             stringTitle = "Silahkan duduk, mejamu di meja " + noTable;
         } else {
             stringTitle = "Queuemu adalah " + countTable + ", confirm reservation/cancel";
@@ -85,12 +89,13 @@ public class ViewQueueTable extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == buttonContinue) {
-            if(countTable==0){
+            if(!table.equals("kosong")){
                 TableController.isOccupiedManipulation(noTable);
                 String idReservation = ReservationController.hitungId();
                 Reservation reservation = new Reservation(idReservation, table, cust.getCurrentCustomer().getIdCust());
                 ReservationController.insertDB(idReservation, table, cust.getCurrentCustomer().getIdCust());
                 res.setcurrentReservation(reservation);
+                ssm.setcurrentMenu(sm);
                 new ViewMenuMakanan();
             } else {
                 QueueController.insertIntoQueue(capacityStatic);

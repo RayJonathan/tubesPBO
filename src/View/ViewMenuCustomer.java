@@ -16,22 +16,22 @@ public class ViewMenuCustomer extends JFrame implements ActionListener {
     Customer cust = sc.getCurrentCustomer();
     JFrame f = new JFrame("");
     JLabel labTitle;
-    JButton buttonReservation, buttonJoinMember, buttonATM, buttonUpdateProfile, buttonLogout, buttonFoodOrder, buttonPay;
+    JButton buttonReservation, buttonJoinMember, buttonATM, buttonUpdateProfile, buttonLogout, buttonFoodOrder, buttonPay, buttonCheckQueue;
     SingletonQueue sq = SingletonQueue.getInstance();
     SingletonStatusMenu ssm = SingletonStatusMenu.getInstance();
 
     public ViewMenuCustomer() {        
         String text = "";
         QueueController.cekValiditasQueue();
-        //boolean validOrder = CustomerController.cekValiditasOrder();
         ssm.getcurrentStatusMenu();
         if(ssm.getcurrentStatusMenu().getEnumStatusMenu()==EnumStatusMenu.QUEUE){
             text = "<html>Selamat Datang, "+cust.getFirstname()+"<br> queuemu "+CustomerController.urutanQueue()+"</html>";
         }
-        if(ssm.getcurrentStatusMenu().getEnumStatusMenu()==EnumStatusMenu.NOTHING)
+        if(ssm.getcurrentStatusMenu().getEnumStatusMenu()!=EnumStatusMenu.QUEUE){
             text = "<html>Selamat Datang, "+cust.getFirstname();
         }
         labTitle = new JLabel(text);
+        buttonCheckQueue = new JButton("Check Queue");
         buttonFoodOrder = new JButton("Order Food");
         buttonPay = new JButton("Bayar Makanan");
         buttonReservation = new JButton("Reserve Table");
@@ -46,6 +46,7 @@ public class ViewMenuCustomer extends JFrame implements ActionListener {
         buttonATM.setBounds(30, 170, 150, 70);
         buttonUpdateProfile.setBounds(190, 170, 150, 70);
         buttonLogout.setBounds(240, 250, 100, 30);
+        buttonCheckQueue.setBounds(30, 90, 150, 70);
         buttonFoodOrder.setBounds(30, 90, 150, 70);
         buttonPay.setBounds(30, 90, 150, 70);
 
@@ -55,16 +56,32 @@ public class ViewMenuCustomer extends JFrame implements ActionListener {
         f.add(buttonATM);
         f.add(buttonUpdateProfile);
         f.add(buttonLogout);
+        f.add(buttonCheckQueue);
         f.add(buttonFoodOrder);
         f.add(buttonPay);
-
+        
+        buttonCheckQueue.setVisible(false);
         buttonFoodOrder.setVisible(false);
         buttonPay.setVisible(false);
+
+        if(ssm.getcurrentStatusMenu().getEnumStatusMenu()==EnumStatusMenu.QUEUE){
+            buttonReservation.setVisible(false);
+            buttonCheckQueue.setVisible(true);
+        }
+        if(ssm.getcurrentStatusMenu().getEnumStatusMenu()==EnumStatusMenu.ORDER){
+            buttonReservation.setVisible(false);
+            buttonFoodOrder.setVisible(true);
+        }
+        if(ssm.getcurrentStatusMenu().getEnumStatusMenu()==EnumStatusMenu.TRANSACTION){
+            buttonReservation.setVisible(false);
+            buttonPay.setVisible(true);
+        }
 
         f.setSize(400, 400);
         buttonReservation.addActionListener(this);
         buttonJoinMember.addActionListener(this);
         buttonATM.addActionListener(this);
+        buttonCheckQueue.addActionListener(this);
         buttonUpdateProfile.addActionListener(this);
         buttonLogout.addActionListener(this);
         buttonFoodOrder.addActionListener(this);
@@ -92,6 +109,8 @@ public class ViewMenuCustomer extends JFrame implements ActionListener {
             new ViewTransaction();
         } else if (e.getSource() == buttonLogout) {
             new ViewMenuUtama();
+        } else if (e.getSource() == buttonCheckQueue){
+            new ViewCheckQueue();
         }
     }
 

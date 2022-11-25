@@ -83,7 +83,6 @@ public class FoodOrderController {
             pstat.setDate(3, date);
             pstat.executeUpdate();
 
-            JOptionPane.showMessageDialog(null, "Berhasil memasukkan data ke database");
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error!! Gagal memasukkan data ke database >insertDBReceipt foodordercontroller");
             System.out.println(e);
@@ -107,7 +106,6 @@ public class FoodOrderController {
             pstat.setDouble(6, subtotal);
             pstat.executeUpdate();
 
-            JOptionPane.showMessageDialog(null, "Berhasil memasukkan data ke database");
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error!! Gagal memasukkan data ke database >insertDB foodordercontroller");
             System.out.println(e);

@@ -35,9 +35,6 @@ public class ViewMember extends JFrame implements ActionListener {
         f.setVisible(true);
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
-    public static void main(String[] args) {
-        new ViewMember();
-    }
     @Override
     public void actionPerformed(ActionEvent e) {
         f.dispose();

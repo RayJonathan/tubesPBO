@@ -112,9 +112,9 @@ public class ViewMenuUtama extends JFrame implements ActionListener {
 
                 if (!id.equals("")) {
                     if (status.equals("cust")) {
-                        new ViewMenuCustomer();
                         StatusMenu sm = new StatusMenu(EnumStatusMenu.NOTHING);
                         ssm.setcurrentMenu(sm);
+                        new ViewMenuCustomer();
                     } else {
                         new ViewMenuAdmin();
                     }
