@@ -23,17 +23,15 @@ import java.util.ArrayList;
 public class ViewTransaction {
     static ConnectDatabase conn = SingletonDatabase.getConnectObject();
     double totalHarga = 0;
-    Discount diskon = new Discount("", 0);
-    public static void main(String[] args) {
-        new ViewTransaction();
-    }
+    Discount diskon = new Discount("D000", 0);
+    
     public ViewTransaction(){
         JFrame frame = new JFrame("Transaksi");
         SingletonCustomer sc = SingletonCustomer.getInstance();
         SingletonReceipt sr = SingletonReceipt.getInstance();
-        String recieptId = "RE001"; //Singleton
-        String idCust = ""; //Singleton
-        double balCust = 0; //Singleton
+        String recieptId = sr.getCurrentReceipt().getIdReceipt();
+        String idCust = sc.getCurrentCustomer().getIdCust();
+        double balCust = sc.getCurrentCustomer().getBalance();
 
         ArrayList<ReceiptDetails> listMakanan = getRecieptDetail(recieptId);
         ArrayList<Double> hargaMakanan = getHargaMakanan(recieptId);
@@ -52,7 +50,7 @@ public class ViewTransaction {
             frame.add(listHarga);
             y += 50;
         }
-        if (sc.getCurrentCustomer().getIsMember()) {  //Singleton
+        if (sc.getCurrentCustomer().getIsMember()) { 
             diskon = CustomerController.gachaDiscount();
         }
         totalHarga = totalHarga * (100-diskon.getDiscountAmount()) / 100;
@@ -75,11 +73,11 @@ public class ViewTransaction {
                 if (balCust - totalHarga >= 0) {
                     CustomerController.payFoods(idCust, balCust - totalHarga);
                     CustomerController.newTransaction(recieptId, diskon.getIdDiscount(), totalHarga);
+                    new ViewMenuCustomer();
                 } else {
-                    new ViewTopUpATM("USERNAME SINGLETON", "bayar");  //Singleton
+                    new ViewTopUpATM(sc.getCurrentCustomer().getUsername(), "bayar");
                 }
                 frame.dispose();
-                new ViewMenuCustomer();
             }
         });
 
@@ -104,7 +102,7 @@ public class ViewTransaction {
                         new ReceiptDetails(idReceiptDetails, idReceipt, idMenu, quantity, EnumStatusFood.DELIVERED));
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error!! Gagal memasukkan data ke database");
+            JOptionPane.showMessageDialog(null, "Error!! Gagal memasukkan data ke database getreceiptDetails");
             System.out.println(e);
         }
         conn.disconnect();
@@ -121,7 +119,7 @@ public class ViewTransaction {
                 totalReciept.add(rs.getDouble("subtotal"));
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error!! Gagal memasukkan data ke database");
+            JOptionPane.showMessageDialog(null, "Error!! Gagal memasukkan data ke database getHargamakanan");
             System.out.println(e);
         }
         conn.disconnect();
@@ -139,27 +137,11 @@ public class ViewTransaction {
                 nama = rs.getString("name_menu");
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error!! Gagal memasukkan data ke database");
+            JOptionPane.showMessageDialog(null, "Error!! Gagal memasukkan data ke database getnameMakanann");
             System.out.println(e);
         }
         conn.disconnect();
         return nama;
     }
-    /* public int getDiscount(String idDiscount){
-        int ammount = 0;
-        ConnectDatabase conn = new ConnectDatabase();
-        conn.connect();
-        try {
-            java.sql.Statement stat = conn.con.createStatement();
-            ResultSet rs = stat.executeQuery("SELECT * FROM discount WHERE id_discount = '" + idDiscount + "'");
-            while (rs.next()) {
-                ammount = rs.getInt("discount_amount");
-            }
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error!! Gagal memasukkan data ke database");
-            System.out.println(e);
-        }
-        conn.disconnect();
-        return ammount;
-    } */
+    
 }

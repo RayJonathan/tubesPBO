@@ -98,13 +98,11 @@ public class FoodOrderController {
             PreparedStatement pstat = conn.con.prepareStatement(
                     "INSERT INTO receiptdetails(id_receiptDetails, id_receipt, id_menu, quantity, status_food_progress, subtotal) VALUES (?,?,?,?,?,?)");
 
-            System.out.println(hitungIdDetail());
             pstat.setString(1, hitungIdDetail());
             pstat.setString(2, idReceipt);
             pstat.setString(3, idMenu);
             pstat.setInt(4, qty);
             pstat.setString(5, EnumStatusFood.INPROGRESS.toString());
-            System.out.println(EnumStatusFood.INPROGRESS.toString());
             double subtotal = price * qty;
             pstat.setDouble(6, subtotal);
             pstat.executeUpdate();

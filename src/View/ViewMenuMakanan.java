@@ -28,7 +28,7 @@ public class ViewMenuMakanan {
         Receipt receipt = new Receipt(rcptId, rsvId, idCust, date);
         sr.setCurrentReceipt(receipt);
         FoodOrderController.insertDbReceipt(sr.getCurrentReceipt().getIdReceipt(),
-            sr.getCurrentReceipt().getidReservation(),
+            sr.getCurrentReceipt().getIdReservation(),
             sr.getCurrentReceipt().getDate());
         ArrayList<JTextField> quantity = new ArrayList<>();
 
@@ -53,10 +53,10 @@ public class ViewMenuMakanan {
                     if (value != 0) {
                         FoodOrderController.insertDB(showfood.get(i).getIdMenu(), value, showfood.get(i).getPrice(),
                                 sr.getCurrentReceipt().getIdReceipt());
-                        new ViewMenuCustomer();
-                        frame.dispose();
                     }
                 }
+                new ViewTransaction();
+                frame.dispose();
             }
         });
         frame.add(submit);

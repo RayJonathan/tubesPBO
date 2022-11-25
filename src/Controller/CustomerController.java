@@ -35,7 +35,7 @@ public class CustomerController {
     public static Discount gachaDiscount() {
         conn.connect();
         ArrayList<Discount> discount = new ArrayList<>();
-        String query = "SELECT * FROM discount";
+        String query = "SELECT * FROM discount WHERE id_discount <> 'D000'";
         try {
             Statement stmt = conn.con.createStatement();
             ResultSet rs = stmt.executeQuery(query);
@@ -202,7 +202,7 @@ public class CustomerController {
             stat.setString(1, hitungIdTransaction());
             stat.setString(2, idReceipt);
             stat.setString(3, idDiscount);
-            stat.setDouble(3, total);
+            stat.setDouble(4, total);
             stat.executeUpdate();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error!! Gagal memasukkan data ke database");

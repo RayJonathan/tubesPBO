@@ -30,6 +30,7 @@ public class ATMController {
     static public void setBalance(double value, String username) {
         value += showBalance(username);
         ConnectDatabase conn = new ConnectDatabase();
+        SingletonCustomer sc = SingletonCustomer.getInstance();
         conn.connect();
         try {
             PreparedStatement stat = conn.con.prepareStatement(
@@ -38,6 +39,7 @@ public class ATMController {
             stat.setString(2, username);
             stat.executeUpdate();
             JOptionPane.showMessageDialog(null, "TOPUP SUCCESS", username, 0);
+            sc.getCurrentCustomer().setBalance(value);
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error!! Gagal memasukkan data ke database");
 
